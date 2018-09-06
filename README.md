@@ -13,7 +13,7 @@ Fork this repo.
 Currently, becoming a Graasp Developer and registering Graasp Apps is a manual process. Contact
 juancarlos.farah@epfl.ch or andre.nogueira@epfl.ch to receive a `GRAASP_DEVELOPER_ID`. Every time
 you want to release a new app, you will also have to request a `GRAASP_APP_ID`. This process is
-being automated, but it's currently still in the works. 
+being automated, but it's currently still in the works.
 
 We will also give you AWS credentials, `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, which you
 will need to deploy your application to the Graasp ecosystem. These keys are private, so you should
@@ -22,7 +22,7 @@ not share them with anyone.
 ## Environment Variables
 
 Create a file in your project root named `.env` and add the following lines, replacing the values
-between `<>` with the keys your received.
+between `<>` with the keys you received.
 
 ```
 GRAASP_DEVELOPER_ID=<YOUR_GRAASP_DEVELOPER_ID>
