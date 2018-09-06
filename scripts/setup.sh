@@ -53,6 +53,11 @@ if [ -z "${AWS_ACCESS_KEY_ID}" ] || [ -z "${AWS_SECRET_ACCESS_KEY}" ]; then
     exit 1
 fi
 
+if [ ! -f ${AWS_CREDENTIALS_FILENAME} ]; then
+  mkdir -p "$(dirname "${AWS_CREDENTIALS_FILENAME}")"
+  touch "${AWS_CREDENTIALS_FILENAME}"
+fi
+
 # remove previous graasp credentials
 sed -i -e '/\[graasp\]/{N;N;N;N;d;}' ${AWS_CREDENTIALS_FILENAME}
 
