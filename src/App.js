@@ -1,20 +1,31 @@
 import React, { Component } from 'react';
-import Logo from './logo.svg';
+import Qs from 'qs';
+import TeacherView from './teacher/TeacherView';
+import StudentView from './student/StudentView';
 import './App.css';
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    const { mode = 'default' } = Qs.parse(window.location.search, { ignoreQueryPrefix: true });
+    this.state = { mode };
+  }
+
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={Logo} className="App-logo" alt="Logo" />
-          <h1 className="App-title">Welcome to the Graasp App Starter Kit</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+    const mode  = this.state.mode;
+
+    switch (mode) {
+      // show teacher view when in teacher mode
+      case 'teacher':
+        return <TeacherView />;
+
+      // by default go with the student mode
+      case 'student':
+      default:
+        return <StudentView />;
+    }
+
   }
 }
 
