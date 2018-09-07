@@ -5,7 +5,6 @@ import StudentView from './student/StudentView';
 import './App.css';
 
 class App extends Component {
-
   constructor(props) {
     super(props);
     const { mode = 'default' } = Qs.parse(window.location.search, { ignoreQueryPrefix: true });
@@ -13,7 +12,7 @@ class App extends Component {
   }
 
   render() {
-    const mode  = this.state.mode;
+    const { mode } = this.state;
 
     switch (mode) {
       // show teacher view when in teacher mode
@@ -25,7 +24,6 @@ class App extends Component {
       default:
         return <StudentView />;
     }
-
   }
 }
 
