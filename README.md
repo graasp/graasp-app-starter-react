@@ -41,7 +41,7 @@ order to setup your credentials. This script will write the appropriate credenti
 ## Installing dependences
 
 Make sure you have `Node`, `npm` and `yarn` installed on your local machine otherwise go to
-`https://changelog.com/posts/install-node-js-with-homebrew-on-os-x` and install them then run `yarn` from the project directory yo install all dependences.
+`https://changelog.com/posts/install-node-js-with-homebrew-on-os-x` and install them; then run `yarn` from the project directory to install all dependences.
 
 ## Starting the server
 
