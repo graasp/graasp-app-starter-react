@@ -11,7 +11,7 @@ const TeacherView = () => (
     <Container className="App-body">
       <Alert color="primary">
         This is the teacher view. Switch to the student view by clicking on the URL below.
-        <a href='?mode=student'>
+        <a href="?mode=student">
           <pre>{`${window.location.host}/?mode=student`}</pre>
         </a>
       </Alert>
