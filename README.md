@@ -38,11 +38,11 @@ order to setup your credentials. This script will write the appropriate credenti
 `~/.aws/credentials` file that will allow you to deploy your application to the ecosystem.
 
 
-## Installing dependences
+## Installing dependencies
 
-Make sure you have `Node`, `npm` and `yarn` installed on your local machine otherwise go to
-`https://changelog.com/posts/install-node-js-with-homebrew-on-os-x` and install them; then run `yarn` from the project directory to install all dependences.
+Make sure you have `node` and `yarn` installed on your local machine otherwise go
+[Installing node and npm](https://changelog.com/posts/install-node-js-with-homebrew-on-os-x) and install them; then run `yarn` from the project directory to install all dependences.
 
 ## Starting the server
 
-Navigate to the cloned or forked project directory in command line and type `npm start` and the project will automatically run on `localhost:3000`.
+Navigate to the cloned or forked project directory using the command line, type `npm start` and the project will automatically run on `localhost:3000`.
