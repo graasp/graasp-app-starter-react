@@ -24,7 +24,8 @@
     "lint": "eslint .",
     "test": "react-scripts test --env=jsdom",
     "test:ci": "cross-env CI=true env-cmd ./.env.test react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "release": "standard-version"
   },
   "devDependencies": {
     "@commitlint/cli": "7.1.2",
@@ -34,6 +35,10 @@
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-jsx-a11y": "6.1.1",
     "eslint-plugin-react": "7.11.1",
-    "husky": "1.0.0-rc.15"
+    "husky": "1.0.0-rc.15",
+    "standard-version": "4.4.0"
+  },
+  "release": {
+    "analyzeCommits": "conventional"
   }
 }
