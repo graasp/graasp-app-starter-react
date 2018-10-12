@@ -23,13 +23,14 @@
     "build": "react-scripts build",
     "lint": "eslint .",
     "test": "react-scripts test --env=jsdom",
-    "test:ci": "cross-env CI=true env-cmd ./.env.test react-scripts test --env=jsdom",
+    "test:ci": "cross-env CI=true env-cmd ./.env.test react-scripts test --env=jsdom --coverage && cat ./coverage/lcov.info | env-cmd ./.env.test codacy-coverage",
     "eject": "react-scripts eject",
     "release": "standard-version"
   },
   "devDependencies": {
     "@commitlint/cli": "7.1.2",
     "@commitlint/config-conventional": "7.1.2",
+    "codacy-coverage": "3.1.0",
     "eslint": "5.6.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-plugin-import": "2.14.0",
