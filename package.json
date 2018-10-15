@@ -27,8 +27,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "eslint .",
-    "test": "react-scripts test --env=jsdom",
-    "test:ci": "cross-env CI=true env-cmd ./.env.test react-scripts test --env=jsdom",
+    "test": "react-scripts test",
+    "test:ci": "cross-env CI=true env-cmd ./.env.test react-scripts test",
     "eject": "react-scripts eject",
     "release": "standard-version"
   },
@@ -44,5 +44,11 @@
   },
   "release": {
     "analyzeCommits": "conventional"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
