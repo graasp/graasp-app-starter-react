@@ -8,15 +8,15 @@ import Logo from '../logo.svg';
 import './Header.css';
 
 class Header extends Component {
-  state = {
-    selectedLanguage: options[0],
-  };
-
   static propTypes = {
     i18n: PropTypes.shape({
       defaultNS: PropTypes.string,
     }).isRequired,
     t: PropTypes.func.isRequired,
+  };
+
+  state = {
+    selectedLanguage: options[0],
   };
 
   colorStyles = {
