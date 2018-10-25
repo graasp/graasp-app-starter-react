@@ -11,34 +11,45 @@
     "bootstrap": "4.1.3",
     "cross-env": "5.2.0",
     "env-cmd": "8.0.2",
+    "enzyme": "3.7.0",
+    "enzyme-adapter-react-16": "1.6.0",
+    "i18next": "11.9.1",
     "prop-types": "15.6.2",
     "qs": "6.5.2",
     "react": "16.5.2",
     "react-dom": "16.5.2",
-    "react-scripts": "1.1.5",
-    "reactstrap": "6.4.0"
+    "react-i18next": "8.0.7",
+    "react-scripts": "2.0.5",
+    "react-select": "2.1.0",
+    "reactstrap": "6.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "eslint .",
-    "test": "react-scripts test --env=jsdom",
-    "test:ci": "cross-env CI=true env-cmd ./.env.test react-scripts test --env=jsdom",
+    "test": "react-scripts test",
+    "test:ci": "cross-env CI=true env-cmd ./.env.test react-scripts test --coverage && cat ./coverage/lcov.info | env-cmd ./.env.test codacy-coverage",
     "eject": "react-scripts eject",
     "release": "standard-version"
   },
   "devDependencies": {
-    "@commitlint/cli": "7.1.2",
+    "@commitlint/cli": "7.2.1",
     "@commitlint/config-conventional": "7.1.2",
-    "eslint": "5.6.0",
+    "codacy-coverage": "3.1.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-plugin-import": "2.14.0",
-    "eslint-plugin-jsx-a11y": "6.1.1",
+    "eslint-plugin-jsx-a11y": "6.1.2",
     "eslint-plugin-react": "7.11.1",
-    "husky": "1.0.0-rc.15",
+    "husky": "1.1.2",
     "standard-version": "4.4.0"
   },
   "release": {
     "analyzeCommits": "conventional"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
