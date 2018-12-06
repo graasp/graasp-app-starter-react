@@ -4,7 +4,7 @@ import { Row, Col } from 'reactstrap';
 import { withNamespaces } from 'react-i18next';
 import Select from 'react-select';
 import { options } from '../constants/langs';
-import Logo from '../logo.svg';
+import { ReactComponent as Logo } from '../resources/logo.svg';
 import './Header.css';
 
 class Header extends Component {
@@ -52,7 +52,7 @@ class Header extends Component {
             />
           </Col>
         </Row>
-        <img src={Logo} className="App-logo" alt="Logo" />
+        <Logo className="App-logo" />
         <h1 className="App-title">{t('Welcome to the Graasp App Starter Kit')}</h1>
       </header>
     );
