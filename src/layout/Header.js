@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
 import { withNamespaces } from 'react-i18next';
 import Select from 'react-select';
-import { options } from '../constants/langs';
+import { options as langOptions } from '../constants/langs';
 import { ReactComponent as Logo } from '../resources/logo.svg';
 import './Header.css';
 
@@ -13,10 +14,7 @@ class Header extends Component {
       defaultNS: PropTypes.string,
     }).isRequired,
     t: PropTypes.func.isRequired,
-  };
-
-  state = {
-    selectedLanguage: options[0],
+    lang: PropTypes.string.isRequired,
   };
 
   colorStyles = {
@@ -29,15 +27,12 @@ class Header extends Component {
   changeLanguage = (selectedLanguage) => {
     const { i18n } = this.props;
     const { value } = selectedLanguage;
-    this.setState({
-      selectedLanguage,
-    });
     i18n.changeLanguage(value);
   };
 
   render() {
-    const { selectedLanguage } = this.state;
-    const { t } = this.props;
+    const { t, lang } = this.props;
+    const selectedLanguage = langOptions.find(langOption => langOption.value === lang);
     return (
       <header className="App-header">
         <Row>
@@ -45,8 +40,9 @@ class Header extends Component {
             <Select
               styles={this.colorStyles}
               className="LanguageSelector"
-              defaultValue={options[0]}
-              options={options}
+              // default selected value is the first language option
+              defaultValue={langOptions[0]}
+              options={langOptions}
               value={selectedLanguage}
               onChange={this.changeLanguage}
             />
@@ -59,4 +55,10 @@ class Header extends Component {
   }
 }
 
-export default withNamespaces('translations')(Header);
+const mapStateToProps = ({ settings }) => ({
+  lang: settings.lang,
+});
+
+const ConnectedHeader = connect(mapStateToProps)(Header);
+
+export default withNamespaces('translations')(ConnectedHeader);
