@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
 import { withNamespaces } from 'react-i18next';
 import Select from 'react-select';
-import { options as langOptions } from '../constants/langs';
-import { ReactComponent as Logo } from '../resources/logo.svg';
+import { options as langOptions } from '../../constants/langs';
+import { ReactComponent as Logo } from '../../resources/logo.svg';
 import './Header.css';
 
 class Header extends Component {
@@ -15,6 +15,11 @@ class Header extends Component {
     }).isRequired,
     t: PropTypes.func.isRequired,
     lang: PropTypes.string.isRequired,
+    appInstanceId: PropTypes.string,
+  };
+
+  static defaultProps = {
+    appInstanceId: null,
   };
 
   colorStyles = {
@@ -30,12 +35,30 @@ class Header extends Component {
     i18n.changeLanguage(value);
   };
 
+  renderAppInstanceLink = () => {
+    const { appInstanceId } = this.props;
+    if (!appInstanceId) {
+      return (
+        <a
+          href={`${window.location.search}&appInstanceId=${Math.random().toString(36).substr(2, 5)}`}
+          className="AppInstanceIdLink"
+        >
+          Use Sample App Instance
+        </a>
+      );
+    }
+    return <div />;
+  };
+
   render() {
     const { t, lang } = this.props;
     const selectedLanguage = langOptions.find(langOption => langOption.value === lang);
     return (
       <header className="App-header">
         <Row>
+          <Col>
+            { this.renderAppInstanceLink() }
+          </Col>
           <Col>
             <Select
               styles={this.colorStyles}
@@ -49,7 +72,9 @@ class Header extends Component {
           </Col>
         </Row>
         <Logo className="App-logo" />
-        <h1 className="App-title">{t('Welcome to the Graasp App Starter Kit')}</h1>
+        <h1 className="App-title">
+          {t('Welcome to the Graasp App Starter Kit')}
+        </h1>
       </header>
     );
   }
@@ -57,6 +82,7 @@ class Header extends Component {
 
 const mapStateToProps = ({ settings }) => ({
   lang: settings.lang,
+  appInstanceId: settings.appInstanceId,
 });
 
 const ConnectedHeader = connect(mapStateToProps)(Header);

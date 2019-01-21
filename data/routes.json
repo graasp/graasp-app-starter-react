@@ -1,0 +1,5 @@
+{
+  "/app-instance-resources\\?appInstanceId=:id": "/appInstanceResources?appInstance=:id",
+  "/app-instance-resources": "/appInstanceResources",
+  "/app-instance-resources/:id": "/appInstanceResources/:id"
+}
