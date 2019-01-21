@@ -18,3 +18,12 @@
   width: 110px;
   float: right;
 }
+
+.AppInstanceIdLink {
+  float: left;
+  color: #fff;
+}
+
+.AppInstanceIdLink:hover {
+  color: #fff;
+}

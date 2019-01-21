@@ -4,7 +4,7 @@ import { withNamespaces } from 'react-i18next';
 import { Alert, Container } from 'reactstrap';
 
 export const StudentView = ({ t }) => (
-  <Container className="App-body">
+  <Container className="App App-body StudentView">
     <Alert color="info">
       {t('This is the student view. Switch to the teacher view by clicking on the URL below.')}
       <a href="?mode=teacher">

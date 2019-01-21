@@ -1,15 +1,21 @@
 import Qs from 'qs';
 import {
-  FLAG_GETTING_API_ENDPOINT, FLAG_GETTING_SETTINGS,
+  FLAG_GETTING_API_ENDPOINT,
+  FLAG_GETTING_SETTINGS,
   GET_API_ENDPOINT_FAILED,
-  GET_API_ENDPOINT_SUCCEEDED, GET_SETTINGS_FAILED, GET_SETTINGS_SUCCEEDED,
-} from '../types/settings';
+  GET_API_ENDPOINT_SUCCEEDED,
+  GET_SETTINGS_FAILED,
+  GET_SETTINGS_SUCCEEDED,
+} from '../types';
 import {
   BASE_API_URL,
+  DEFAULT_GET_REQUEST,
   HOSTNAME_ENDPOINT,
+  LOCAL_API,
 } from '../config/api';
 import { flag } from './common';
 
+// flags
 const flagGettingApiEndpoint = flag(FLAG_GETTING_API_ENDPOINT);
 const flagGettingSettings = flag(FLAG_GETTING_SETTINGS);
 
@@ -20,14 +26,22 @@ const flagGettingSettings = flag(FLAG_GETTING_SETTINGS);
 const getApiEndpoint = async () => async (dispatch) => {
   dispatch(flagGettingApiEndpoint(true));
   try {
-    const url = `${BASE_API_URL + HOSTNAME_ENDPOINT}?parentLocationHostname=${window.parent.location.hostname}`;
-    const endpoint = await fetch(url);
-    dispatch({
+    const parentLocationHostname = window.parent.location.hostname;
+    if (parentLocationHostname === 'localhost') {
+      return dispatch({
+        type: GET_API_ENDPOINT_SUCCEEDED,
+        payload: LOCAL_API,
+      });
+    }
+
+    const url = `${BASE_API_URL + HOSTNAME_ENDPOINT}?parentLocationHostname=${parentLocationHostname}`;
+    const endpoint = await fetch(url, DEFAULT_GET_REQUEST);
+    return dispatch({
       type: GET_API_ENDPOINT_SUCCEEDED,
       payload: endpoint,
     });
   } catch (err) {
-    dispatch({
+    return dispatch({
       type: GET_API_ENDPOINT_FAILED,
       payload: err,
     });
@@ -46,10 +60,16 @@ const getSettings = () => (dispatch) => {
     const {
       mode = 'default',
       lang = 'en',
+      appInstanceId = null,
+      userId = null,
+      sessionId = null,
     } = Qs.parse(window.location.search, { ignoreQueryPrefix: true });
     const settings = {
       mode,
       lang,
+      appInstanceId,
+      userId,
+      sessionId,
     };
     dispatch({
       type: GET_SETTINGS_SUCCEEDED,

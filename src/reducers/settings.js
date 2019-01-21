@@ -5,7 +5,11 @@ import {
 
 const INITIAL_STATE = {
   endpoint: null,
+  // the properties below come from the context via the query string
   lang: 'en',
+  appInstanceId: null,
+  spaceId: null,
+  subSpaceId: null,
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
