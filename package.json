@@ -32,7 +32,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:api": "json-server --watch data/db.json --port 3636 --id _id --routes data/routes.json",
+    "start:local": "env-cmd ./.env.local yarn start",
+    "start:api": "yarn reset:api && json-server --watch data/db.json --port 3636 --id _id --routes data/routes.json",
+    "reset:api": "cat data/default.json > data/db.json",
     "build": "yarn build:react && yarn build:bundle",
     "build:react": "react-scripts build",
     "build:bundle": "webpack --config webpack.config.js --mode=production",
