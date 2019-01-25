@@ -25,28 +25,65 @@ not share them with anyone.
 
 ## Environment Variables
 
-Create a file in your project root named `.env` and add the following lines, replacing the values
-between `<>` with the keys you received.
+To start developing locally, you should create a `.env.local` file in your root folder with the
+following content:
 
+```dotenv
+REACT_APP_GRAASP_DEVELOPER_ID=
+REACT_APP_GRAASP_APP_ID=
+REACT_APP_GRAASP_DOMAIN=localhost
+REACT_APP_HOST=
+REACT_APP_VERSION=
+REACT_APP_BASE=
 ```
-GRAASP_DEVELOPER_ID=<YOUR_GRAASP_DEVELOPER_ID>
-GRAASP_APP_ID=<YOUR_GRAASP_APP_ID>
-AWS_ACCESS_KEY_ID=<YOUR_AWS_ACCESS_KEY_ID>
-AWS_SECRET_ACCESS_KEY=<YOUR_AWS_SECRET_ACCESS_KEY>
+
+Once you are ready to deploy your application to our development server, you will need to create
+a `.env.dev` file in your root folder following the patter below. Replace the value between `<>`
+with those that you received from our developers. Please make sure you do not commit or share the
+values between `<>` with anyone, as they are confidential.
+
+```dotenv
+REACT_APP_GRAASP_DEVELOPER_ID=<REACT_APP_GRAASP_DEVELOPER_ID>
+REACT_APP_GRAASP_APP_ID=<REACT_APP_GRAASP_APP_ID>
+REACT_APP_GRAASP_DOMAIN=graasp.eu
+REACT_APP_HOST=apps.dev.graasp.eu
+REACT_APP_VERSION=latest
+REACT_APP_BASE_API_URL=//api.dev.graasp.eu
+REACT_APP_BASE=//$REACT_APP_HOST/$REACT_APP_GRAASP_DEVELOPER_ID/$REACT_APP_GRAASP_APP_ID/$REACT_APP_VERSION/
+NODE_ENV=production
+BUCKET=graasp-apps-dev
+AWS_DEFAULT_REGION=us-east-1
+AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>
+AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
 ```
 
-## Setup Development Environment
+Once you are ready to deploy your application to our production server, you will need to create
+a `.env.prod` file in your root folder following the patter below. Replace the value between `<>`
+with those that you received from our developers. Please make sure you do not commit or share the
+values between `<>` with anyone, as they are confidential.
 
-Once you have set up your `.env` file, you need to run `./scripts/setup.sh` from the root folder in
-order to setup your credentials. This script will write the appropriate credentials to a
-`~/.aws/credentials` file that will allow you to deploy your application to the ecosystem.
-
+```dotenv
+REACT_APP_GRAASP_DEVELOPER_ID=<REACT_APP_GRAASP_DEVELOPER_ID>
+REACT_APP_GRAASP_APP_ID=<REACT_APP_GRAASP_APP_ID>
+REACT_APP_GRAASP_DOMAIN=graasp.eu
+REACT_APP_HOST=apps.graasp.eu
+REACT_APP_VERSION=latest
+REACT_APP_BASE_API_URL=//api.graasp.eu
+REACT_APP_BASE=//$REACT_APP_HOST/$REACT_APP_GRAASP_DEVELOPER_ID/$REACT_APP_GRAASP_APP_ID/$REACT_APP_VERSION/
+NODE_ENV=production
+BUCKET=graasp-apps-prod
+AWS_DEFAULT_REGION=us-east-1
+AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>
+AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
+```
 
 ## Installing Dependencies
 
 Make sure you have `node` and `yarn` installed on your local machine otherwise go
-[here](https://changelog.com/posts/install-node-js-with-homebrew-on-os-x) and install them; then run `yarn` from the project directory to install all dependencies.
+[here](https://changelog.com/posts/install-node-js-with-homebrew-on-os-x) and install them;
+then run `yarn` from the project directory to install all dependencies.
 
 ## Starting the Server
 
-Navigate to the cloned or forked project directory using the command line, type `npm start` and the project will automatically run on `localhost:3000`.
+Navigate to the cloned or forked project directory using the command line, type `npm start` and
+the project will automatically run on `localhost:3000`.
