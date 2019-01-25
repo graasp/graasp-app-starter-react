@@ -16,17 +16,12 @@ class Header extends Component {
     t: PropTypes.func.isRequired,
     lang: PropTypes.string.isRequired,
     appInstanceId: PropTypes.string,
+    spaceId: PropTypes.string,
   };
 
   static defaultProps = {
     appInstanceId: null,
-  };
-
-  colorStyles = {
-    option: styles => ({
-      ...styles,
-      color: 'black',
-    }),
+    spaceId: null,
   };
 
   changeLanguage = (selectedLanguage) => {
@@ -40,10 +35,25 @@ class Header extends Component {
     if (!appInstanceId) {
       return (
         <a
-          href={`${window.location.search}&appInstanceId=${Math.random().toString(36).substr(2, 5)}`}
-          className="AppInstanceIdLink"
+          href={`${window.location.search}&appInstanceId=6156e70ab253020033364411`}
+          className="HeaderLink"
         >
           Use Sample App Instance
+        </a>
+      );
+    }
+    return <div />;
+  };
+
+  renderSpaceLink = () => {
+    const { spaceId } = this.props;
+    if (!spaceId) {
+      return (
+        <a
+          href={`${window.location.search}&spaceId=5b56e70ab253020033364411`}
+          className="HeaderLink"
+        >
+          Use Sample Space
         </a>
       );
     }
@@ -57,11 +67,11 @@ class Header extends Component {
       <header className="App-header">
         <Row>
           <Col>
+            { this.renderSpaceLink() }
             { this.renderAppInstanceLink() }
           </Col>
           <Col>
             <Select
-              styles={this.colorStyles}
               className="LanguageSelector"
               // default selected value is the first language option
               defaultValue={langOptions[0]}
@@ -73,7 +83,7 @@ class Header extends Component {
         </Row>
         <Logo className="App-logo" />
         <h1 className="App-title">
-          {t('Welcome to the Graasp App Starter Kit')}
+          { t('Welcome to the Graasp App Starter Kit') }
         </h1>
       </header>
     );
@@ -82,6 +92,7 @@ class Header extends Component {
 
 const mapStateToProps = ({ context }) => ({
   lang: context.lang,
+  spaceId: context.spaceId,
   appInstanceId: context.appInstanceId,
 });
 
