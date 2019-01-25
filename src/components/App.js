@@ -10,6 +10,7 @@ import {
   getContext,
 } from '../actions';
 import { DEFAULT_LANG, DEFAULT_MODE } from '../config/settings';
+import { getAppInstance } from '../actions/appInstance';
 
 export class App extends Component {
   static propTypes = {
@@ -17,6 +18,7 @@ export class App extends Component {
       defaultNS: PropTypes.string,
     }).isRequired,
     dispatchGetContext: PropTypes.func.isRequired,
+    dispatchGetAppInstance: PropTypes.func.isRequired,
     dispatchGetAppInstanceResources: PropTypes.func.isRequired,
     appInstanceId: PropTypes.string,
     lang: PropTypes.string,
@@ -33,6 +35,8 @@ export class App extends Component {
     super(props);
     // first thing to do is get the context
     props.dispatchGetContext();
+    // then get the app instance
+    props.dispatchGetAppInstance();
   }
 
   async componentDidMount() {
@@ -98,6 +102,7 @@ const mapStateToProps = ({ context }) => ({
 
 const mapDispatchToProps = {
   dispatchGetContext: getContext,
+  dispatchGetAppInstance: getAppInstance,
   dispatchGetAppInstanceResources: getAppInstanceResources,
 };
 
