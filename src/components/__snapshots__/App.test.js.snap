@@ -5,6 +5,19 @@ ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <App
     appInstanceId={null}
+    dispatchGetAppInstance={
+      [MockFunction] {
+        "calls": Array [
+          Array [],
+        ],
+        "results": Array [
+          Object {
+            "isThrow": false,
+            "value": undefined,
+          },
+        ],
+      }
+    }
     dispatchGetAppInstanceResources={[MockFunction]}
     dispatchGetContext={
       [MockFunction] {

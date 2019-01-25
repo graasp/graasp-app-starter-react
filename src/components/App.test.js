@@ -10,6 +10,7 @@ describe('<App />', () => {
     },
     t: jest.fn(),
     dispatchGetContext: jest.fn(),
+    dispatchGetAppInstance: jest.fn(),
     dispatchGetAppInstanceResources: jest.fn(),
   };
   const component = shallow(<App {...props} />);
