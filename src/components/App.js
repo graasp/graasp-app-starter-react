@@ -6,9 +6,8 @@ import TeacherView from './modes/teacher/TeacherView';
 import StudentView from './modes/student/StudentView';
 import './App.css';
 import {
-  getApiEndpoint,
   getAppInstanceResources,
-  getSettings,
+  getContext,
 } from '../actions';
 import { DEFAULT_LANG, DEFAULT_MODE } from '../config/settings';
 
@@ -17,8 +16,7 @@ export class App extends Component {
     i18n: PropTypes.shape({
       defaultNS: PropTypes.string,
     }).isRequired,
-    dispatchGetApiEndpoint: PropTypes.func.isRequired,
-    dispatchGetSettings: PropTypes.func.isRequired,
+    dispatchGetContext: PropTypes.func.isRequired,
     dispatchGetAppInstanceResources: PropTypes.func.isRequired,
     appInstanceId: PropTypes.string,
     lang: PropTypes.string,
@@ -33,10 +31,8 @@ export class App extends Component {
 
   constructor(props) {
     super(props);
-    // first thing to do is get the endpoint for the api and the
-    // settings from the context that come via the query string
-    props.dispatchGetApiEndpoint();
-    props.dispatchGetSettings();
+    // first thing to do is get the context
+    props.dispatchGetContext();
   }
 
   async componentDidMount() {
@@ -94,15 +90,14 @@ export class App extends Component {
   }
 }
 
-const mapStateToProps = ({ settings }) => ({
-  lang: settings.lang,
-  mode: settings.mode,
-  appInstanceId: settings.appInstanceId,
+const mapStateToProps = ({ context }) => ({
+  lang: context.lang,
+  mode: context.mode,
+  appInstanceId: context.appInstanceId,
 });
 
 const mapDispatchToProps = {
-  dispatchGetApiEndpoint: getApiEndpoint,
-  dispatchGetSettings: getSettings,
+  dispatchGetContext: getContext,
   dispatchGetAppInstanceResources: getAppInstanceResources,
 };
 

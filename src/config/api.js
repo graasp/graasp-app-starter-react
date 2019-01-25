@@ -1,11 +1,7 @@
-// base graasp api url
-export const BASE_API_URL = process.env.REACT_APP_BASE_API_URL || 'https://api.graasp.eu';
-
 // local api
-export const LOCAL_API = 'http://localhost:3636';
+export const LOCAL_API_HOST = 'localhost:3636';
 
 // endpoints
-export const HOSTNAME_ENDPOINT = '/hostname';
 export const APP_INSTANCE_RESOURCES_ENDPOINT = '/app-instance-resources';
 
 // request defaults
