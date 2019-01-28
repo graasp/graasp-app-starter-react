@@ -82,6 +82,7 @@ export class App extends Component {
       case 'teacher':
       case 'producer':
       case 'educator':
+      case 'admin':
         return <TeacherView />;
 
       // by default go with the consumer (learner) mode
