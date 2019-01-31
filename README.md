@@ -3,6 +3,9 @@
 [![Codeship](https://app.codeship.com/projects/04f13a10-b05e-0136-09da-7a3da3243947/status?branch=master)](https://app.codeship.com/projects/310436)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2cfb916f3a1d4c0b8fec4634f84f5b93)](https://www.codacy.com/app/react-epfl/graasp-app-starter-react)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/2cfb916f3a1d4c0b8fec4634f84f5b93)](https://www.codacy.com/app/react-epfl/graasp-app-starter-react)
+[![Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 This is a starter repository for a Graasp application. This particular flavor of the starter
 repository uses the React framework. It is an opinionated starter kit based on the `create-react-app`
