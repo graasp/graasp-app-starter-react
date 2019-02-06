@@ -52,11 +52,15 @@ export default (state = INITIAL_STATE, { type, payload }) => {
           ...state.content.filter(appInstanceResource => appInstanceResource._id !== payload),
         ],
       };
-    // implement error handling here
+
     case GET_APP_INSTANCE_RESOURCES_FAILED:
     case POST_APP_INSTANCE_RESOURCE_FAILED:
     case PATCH_APP_INSTANCE_RESOURCE_FAILED:
     case DELETE_APP_INSTANCE_RESOURCE_FAILED:
+      // show error to user
+      alert(payload);
+      return state;
+
     default:
       return state;
   }

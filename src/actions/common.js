@@ -18,7 +18,23 @@ const isErrorResponse = async (response) => {
   }
 };
 
+const getApiContext = (getState) => {
+  const { context } = getState();
+  const { apiHost, appInstanceId, spaceId } = context;
+  if (!apiHost) {
+    throw Error('missing api host');
+  }
+  if (!appInstanceId) {
+    throw Error('missing app instance id');
+  }
+  if (!spaceId) {
+    throw Error('missing space id');
+  }
+  return { apiHost, appInstanceId, spaceId };
+};
+
 export {
   flag,
   isErrorResponse,
+  getApiContext,
 };

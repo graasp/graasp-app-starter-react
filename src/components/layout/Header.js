@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import Select from 'react-select';
 import { options as langOptions } from '../../constants/langs';
 import { ReactComponent as Logo } from '../../resources/logo.svg';
@@ -16,20 +16,15 @@ class Header extends Component {
     t: PropTypes.func.isRequired,
     lang: PropTypes.string.isRequired,
     appInstanceId: PropTypes.string,
+    spaceId: PropTypes.string,
   };
 
   static defaultProps = {
     appInstanceId: null,
+    spaceId: null,
   };
 
-  colorStyles = {
-    option: styles => ({
-      ...styles,
-      color: 'black',
-    }),
-  };
-
-  changeLanguage = (selectedLanguage) => {
+  changeLanguage = selectedLanguage => {
     const { i18n } = this.props;
     const { value } = selectedLanguage;
     i18n.changeLanguage(value);
@@ -40,8 +35,10 @@ class Header extends Component {
     if (!appInstanceId) {
       return (
         <a
-          href={`${window.location.search}&appInstanceId=${Math.random().toString(36).substr(2, 5)}`}
-          className="AppInstanceIdLink"
+          href={`${
+            window.location.search
+          }&appInstanceId=6156e70ab253020033364411`}
+          className="HeaderLink"
         >
           Use Sample App Instance
         </a>
@@ -50,18 +47,35 @@ class Header extends Component {
     return <div />;
   };
 
+  renderSpaceLink = () => {
+    const { spaceId } = this.props;
+    if (!spaceId) {
+      return (
+        <a
+          href={`${window.location.search}&spaceId=5b56e70ab253020033364411`}
+          className="HeaderLink"
+        >
+          Use Sample Space
+        </a>
+      );
+    }
+    return <div />;
+  };
+
   render() {
     const { t, lang } = this.props;
-    const selectedLanguage = langOptions.find(langOption => langOption.value === lang);
+    const selectedLanguage = langOptions.find(
+      langOption => langOption.value === lang
+    );
     return (
       <header className="App-header">
         <Row>
           <Col>
-            { this.renderAppInstanceLink() }
+            {this.renderSpaceLink()}
+            {this.renderAppInstanceLink()}
           </Col>
           <Col>
             <Select
-              styles={this.colorStyles}
               className="LanguageSelector"
               // default selected value is the first language option
               defaultValue={langOptions[0]}
@@ -80,11 +94,12 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = ({ settings }) => ({
-  lang: settings.lang,
-  appInstanceId: settings.appInstanceId,
+const mapStateToProps = ({ context }) => ({
+  lang: context.lang,
+  spaceId: context.spaceId,
+  appInstanceId: context.appInstanceId,
 });
 
 const ConnectedHeader = connect(mapStateToProps)(Header);
 
-export default withNamespaces('translations')(ConnectedHeader);
+export default withTranslation()(ConnectedHeader);

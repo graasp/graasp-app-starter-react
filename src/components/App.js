@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import TeacherView from './modes/teacher/TeacherView';
 import StudentView from './modes/student/StudentView';
 import './App.css';
-import {
-  getApiEndpoint,
-  getAppInstanceResources,
-  getSettings,
-} from '../actions';
+import { getAppInstanceResources, getContext } from '../actions';
 import { DEFAULT_LANG, DEFAULT_MODE } from '../config/settings';
+import { getAppInstance } from '../actions/appInstance';
 
 export class App extends Component {
   static propTypes = {
     i18n: PropTypes.shape({
       defaultNS: PropTypes.string,
     }).isRequired,
-    dispatchGetApiEndpoint: PropTypes.func.isRequired,
-    dispatchGetSettings: PropTypes.func.isRequired,
+    dispatchGetContext: PropTypes.func.isRequired,
+    dispatchGetAppInstance: PropTypes.func.isRequired,
     dispatchGetAppInstanceResources: PropTypes.func.isRequired,
     appInstanceId: PropTypes.string,
     lang: PropTypes.string,
@@ -33,18 +30,14 @@ export class App extends Component {
 
   constructor(props) {
     super(props);
-    // first thing to do is get the endpoint for the api and the
-    // settings from the context that come via the query string
-    props.dispatchGetApiEndpoint();
-    props.dispatchGetSettings();
+    // first thing to do is get the context
+    props.dispatchGetContext();
+    // then get the app instance
+    props.dispatchGetAppInstance();
   }
 
   async componentDidMount() {
-    const {
-      lang,
-      appInstanceId,
-      dispatchGetAppInstanceResources,
-    } = this.props;
+    const { lang, appInstanceId, dispatchGetAppInstanceResources } = this.props;
     // set the language on first load
     this.handleChangeLang(lang);
     // only fetch app instance resources if app instance id is available
@@ -53,12 +46,11 @@ export class App extends Component {
     }
   }
 
-  async componentDidUpdate({ lang: prevLang, appInstanceId: prevAppInstanceId }) {
-    const {
-      lang,
-      appInstanceId,
-      dispatchGetAppInstanceResources,
-    } = this.props;
+  async componentDidUpdate({
+    lang: prevLang,
+    appInstanceId: prevAppInstanceId,
+  }) {
+    const { lang, appInstanceId, dispatchGetAppInstanceResources } = this.props;
     // handle a change of language
     if (lang !== prevLang) {
       this.handleChangeLang(lang);
@@ -69,7 +61,7 @@ export class App extends Component {
     }
   }
 
-  handleChangeLang = (lang) => {
+  handleChangeLang = lang => {
     const { i18n } = this.props;
     i18n.changeLanguage(lang);
   };
@@ -82,6 +74,7 @@ export class App extends Component {
       case 'teacher':
       case 'producer':
       case 'educator':
+      case 'admin':
         return <TeacherView />;
 
       // by default go with the consumer (learner) mode
@@ -94,18 +87,21 @@ export class App extends Component {
   }
 }
 
-const mapStateToProps = ({ settings }) => ({
-  lang: settings.lang,
-  mode: settings.mode,
-  appInstanceId: settings.appInstanceId,
+const mapStateToProps = ({ context }) => ({
+  lang: context.lang,
+  mode: context.mode,
+  appInstanceId: context.appInstanceId,
 });
 
 const mapDispatchToProps = {
-  dispatchGetApiEndpoint: getApiEndpoint,
-  dispatchGetSettings: getSettings,
+  dispatchGetContext: getContext,
+  dispatchGetAppInstance: getAppInstance,
   dispatchGetAppInstanceResources: getAppInstanceResources,
 };
 
-const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
+const ConnectedApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
 
-export default withNamespaces('translations')(ConnectedApp);
+export default withTranslation()(ConnectedApp);

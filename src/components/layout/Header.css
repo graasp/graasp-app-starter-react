@@ -17,13 +17,15 @@
 .LanguageSelector {
   width: 110px;
   float: right;
+  color: black;
 }
 
-.AppInstanceIdLink {
+.HeaderLink {
   float: left;
   color: #fff;
+  margin-left: 1rem;
 }
 
-.AppInstanceIdLink:hover {
+.HeaderLink:hover {
   color: #fff;
 }
