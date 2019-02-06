@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import Select from 'react-select';
 import { options as langOptions } from '../../constants/langs';
 import { ReactComponent as Logo } from '../../resources/logo.svg';
@@ -24,7 +24,7 @@ class Header extends Component {
     spaceId: null,
   };
 
-  changeLanguage = (selectedLanguage) => {
+  changeLanguage = selectedLanguage => {
     const { i18n } = this.props;
     const { value } = selectedLanguage;
     i18n.changeLanguage(value);
@@ -35,7 +35,9 @@ class Header extends Component {
     if (!appInstanceId) {
       return (
         <a
-          href={`${window.location.search}&appInstanceId=6156e70ab253020033364411`}
+          href={`${
+            window.location.search
+          }&appInstanceId=6156e70ab253020033364411`}
           className="HeaderLink"
         >
           Use Sample App Instance
@@ -62,13 +64,15 @@ class Header extends Component {
 
   render() {
     const { t, lang } = this.props;
-    const selectedLanguage = langOptions.find(langOption => langOption.value === lang);
+    const selectedLanguage = langOptions.find(
+      langOption => langOption.value === lang
+    );
     return (
       <header className="App-header">
         <Row>
           <Col>
-            { this.renderSpaceLink() }
-            { this.renderAppInstanceLink() }
+            {this.renderSpaceLink()}
+            {this.renderAppInstanceLink()}
           </Col>
           <Col>
             <Select
@@ -83,7 +87,7 @@ class Header extends Component {
         </Row>
         <Logo className="App-logo" />
         <h1 className="App-title">
-          { t('Welcome to the Graasp App Starter Kit') }
+          {t('Welcome to the Graasp App Starter Kit')}
         </h1>
       </header>
     );
@@ -98,4 +102,4 @@ const mapStateToProps = ({ context }) => ({
 
 const ConnectedHeader = connect(mapStateToProps)(Header);
 
-export default withNamespaces('translations')(ConnectedHeader);
+export default withTranslation()(ConnectedHeader);

@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import TeacherView from './modes/teacher/TeacherView';
 import StudentView from './modes/student/StudentView';
 import './App.css';
-import {
-  getAppInstanceResources,
-  getContext,
-} from '../actions';
+import { getAppInstanceResources, getContext } from '../actions';
 import { DEFAULT_LANG, DEFAULT_MODE } from '../config/settings';
 import { getAppInstance } from '../actions/appInstance';
 
@@ -40,11 +37,7 @@ export class App extends Component {
   }
 
   async componentDidMount() {
-    const {
-      lang,
-      appInstanceId,
-      dispatchGetAppInstanceResources,
-    } = this.props;
+    const { lang, appInstanceId, dispatchGetAppInstanceResources } = this.props;
     // set the language on first load
     this.handleChangeLang(lang);
     // only fetch app instance resources if app instance id is available
@@ -53,12 +46,11 @@ export class App extends Component {
     }
   }
 
-  async componentDidUpdate({ lang: prevLang, appInstanceId: prevAppInstanceId }) {
-    const {
-      lang,
-      appInstanceId,
-      dispatchGetAppInstanceResources,
-    } = this.props;
+  async componentDidUpdate({
+    lang: prevLang,
+    appInstanceId: prevAppInstanceId,
+  }) {
+    const { lang, appInstanceId, dispatchGetAppInstanceResources } = this.props;
     // handle a change of language
     if (lang !== prevLang) {
       this.handleChangeLang(lang);
@@ -69,7 +61,7 @@ export class App extends Component {
     }
   }
 
-  handleChangeLang = (lang) => {
+  handleChangeLang = lang => {
     const { i18n } = this.props;
     i18n.changeLanguage(lang);
   };
@@ -107,6 +99,9 @@ const mapDispatchToProps = {
   dispatchGetAppInstanceResources: getAppInstanceResources,
 };
 
-const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
+const ConnectedApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
 
-export default withNamespaces('translations')(ConnectedApp);
+export default withTranslation()(ConnectedApp);

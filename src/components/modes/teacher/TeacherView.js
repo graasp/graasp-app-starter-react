@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  Alert,
-  Container,
-  Button,
-  Table,
-  ButtonGroup,
-} from 'reactstrap';
+import { Alert, Container, Button, Table, ButtonGroup } from 'reactstrap';
 import Select from 'react-select';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import './TeacherView.css';
 import {
@@ -27,30 +21,33 @@ import { getUsers } from '../../../actions/users';
  */
 const renderAppInstanceResources = (
   appInstanceResources,
-  {
-    dispatchPatchAppInstanceResource,
-    dispatchDeleteAppInstanceResource,
-  },
+  { dispatchPatchAppInstanceResource, dispatchDeleteAppInstanceResource }
 ) => {
   // if there are no resources, show an empty table
   if (!appInstanceResources.length) {
-    return <tr><td colSpan={4}>No App Instance Resources</td></tr>;
+    return (
+      <tr>
+        <td colSpan={4}>No App Instance Resources</td>
+      </tr>
+    );
   }
   // map each app instance resource to a row in the table
   return appInstanceResources.map(({ _id, appInstance, data }) => (
     <tr key={_id}>
-      <th scope="row">{ _id }</th>
-      <td>{ appInstance }</td>
-      <td>{ data.value }</td>
+      <th scope="row">{_id}</th>
+      <td>{appInstance}</td>
+      <td>{data.value}</td>
       <td>
         <ButtonGroup>
           <Button
             size="sm"
             color="warning"
-            onClick={() => dispatchPatchAppInstanceResource({
-              id: _id,
-              data: { value: Math.random() },
-            })}
+            onClick={() =>
+              dispatchPatchAppInstanceResource({
+                id: _id,
+                data: { value: Math.random() },
+              })
+            }
           >
             Change
           </Button>
@@ -67,7 +64,9 @@ const renderAppInstanceResources = (
   ));
 };
 
-const generateRandomAppInstanceResource = ({ dispatchPostAppInstanceResource }) => {
+const generateRandomAppInstanceResource = ({
+  dispatchPostAppInstanceResource,
+}) => {
   dispatchPostAppInstanceResource({
     data: { value: Math.random() },
   });
@@ -79,17 +78,21 @@ export class TeacherView extends Component {
     dispatchGetUsers: PropTypes.func.isRequired,
     // inside the shape method you should put the shape
     // that the resources your app uses will have
-    appInstanceResources: PropTypes.arrayOf(PropTypes.shape({
-      // we need to specify number to avoid warnings with local server
-      _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      appInstanceId: PropTypes.string,
-      data: PropTypes.object,
-    })),
+    appInstanceResources: PropTypes.arrayOf(
+      PropTypes.shape({
+        // we need to specify number to avoid warnings with local server
+        _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        appInstanceId: PropTypes.string,
+        data: PropTypes.object,
+      })
+    ),
     // this is the shape of the select options for students
-    studentOptions: PropTypes.arrayOf(PropTypes.shape({
-      label: PropTypes.string,
-      value: PropTypes.string,
-    })).isRequired,
+    studentOptions: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string,
+        value: PropTypes.string,
+      })
+    ).isRequired,
   };
 
   state = {
@@ -98,13 +101,11 @@ export class TeacherView extends Component {
 
   constructor(props) {
     super(props);
-    const {
-      dispatchGetUsers,
-    } = this.props;
+    const { dispatchGetUsers } = this.props;
     dispatchGetUsers();
   }
 
-  handleChangeStudent = (value) => {
+  handleChangeStudent = value => {
     this.setState({
       selectedStudent: value,
     });
@@ -123,9 +124,9 @@ export class TeacherView extends Component {
     return (
       <Container fluid className="App App-body TeacherView">
         <Alert color="primary">
-          {
-            t('This is the teacher view. Switch to the student view by clicking on the URL below.')
-          }
+          {t(
+            'This is the teacher view. Switch to the student view by clicking on the URL below.'
+          )}
           <a href="?mode=student">
             <pre>{`${window.location.host}/?mode=student`}</pre>
           </a>
@@ -152,7 +153,7 @@ export class TeacherView extends Component {
             </tr>
           </thead>
           <tbody>
-            { renderAppInstanceResources(appInstanceResources, this.props) }
+            {renderAppInstanceResources(appInstanceResources, this.props)}
           </tbody>
         </Table>
         <Button
@@ -174,7 +175,10 @@ TeacherView.defaultProps = {
 const mapStateToProps = ({ users, appInstanceResources }) => ({
   // we transform the list of students in the database
   // to the shape needed by the select component
-  studentOptions: users.content.map(({ id, name }) => ({ value: id, label: name })),
+  studentOptions: users.content.map(({ id, name }) => ({
+    value: id,
+    label: name,
+  })),
   appInstanceResources: appInstanceResources.content,
 });
 
@@ -187,6 +191,9 @@ const mapDispatchToProps = {
   dispatchDeleteAppInstanceResource: deleteAppInstanceResource,
 };
 
-const ConnectedComponent = connect(mapStateToProps, mapDispatchToProps)(TeacherView);
+const ConnectedComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TeacherView);
 
-export default withNamespaces('translations')(ConnectedComponent);
+export default withTranslation()(ConnectedComponent);
