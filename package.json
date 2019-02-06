@@ -30,8 +30,8 @@
     "redux-thunk": "2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "start:local": "env-cmd ./.env.local yarn start",
+    "start": "env-cmd ./.env.local react-scripts start",
+    "start:local": "yarn start",
     "start:api": "json-server --watch data/db.json --port 3636 --id _id --routes data/routes.json",
     "prestart:api": "cat data/default.json > data/db.json",
     "build": "run-s build:react build:bundle",
