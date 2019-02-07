@@ -4,6 +4,7 @@ import {
   PATCH_APP_INSTANCE_FAILED,
   PATCH_APP_INSTANCE_SUCCEEDED,
 } from '../types/appInstance';
+import { showErrorToast } from '../utils/toasts';
 
 const INITIAL_STATE = null;
 
@@ -16,7 +17,7 @@ export default (state = INITIAL_STATE, { payload, type }) => {
     case PATCH_APP_INSTANCE_FAILED:
     case GET_APP_INSTANCE_FAILED:
       // show error to user
-      alert(payload);
+      showErrorToast(payload);
       return state;
 
     default:

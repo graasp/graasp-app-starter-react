@@ -1,12 +1,10 @@
-import {
-  GET_CONTEXT_FAILED,
-  GET_CONTEXT_SUCCEEDED,
-} from '../types';
+import { GET_CONTEXT_FAILED, GET_CONTEXT_SUCCEEDED } from '../types';
 import {
   DEFAULT_API_HOST,
   DEFAULT_LANG,
   DEFAULT_MODE,
 } from '../config/settings';
+import { showErrorToast } from '../utils/toasts';
 
 const INITIAL_STATE = {
   apiHost: DEFAULT_API_HOST,
@@ -28,7 +26,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 
     case GET_CONTEXT_FAILED:
       // show error to user
-      alert(payload);
+      showErrorToast(payload);
       return state;
 
     default:

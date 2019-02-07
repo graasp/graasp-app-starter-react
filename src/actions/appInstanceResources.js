@@ -20,11 +20,19 @@ import {
   DELETE_APP_INSTANCE_RESOURCE_SUCCEEDED,
 } from '../types';
 import { flag, getApiContext, isErrorResponse } from './common';
+import { showErrorToast } from '../utils/toasts';
+import { MISSING_APP_INSTANCE_RESOURCE_ID_MESSAGE } from '../constants/messages';
 
-const flagGettingAppInstanceResources = flag(FLAG_GETTING_APP_INSTANCE_RESOURCES);
+const flagGettingAppInstanceResources = flag(
+  FLAG_GETTING_APP_INSTANCE_RESOURCES
+);
 const flagPostingAppInstanceResource = flag(FLAG_POSTING_APP_INSTANCE_RESOURCE);
-const flagPatchingAppInstanceResource = flag(FLAG_PATCHING_APP_INSTANCE_RESOURCE);
-const flagDeletingAppInstanceResource = flag(FLAG_DELETING_APP_INSTANCE_RESOURCE);
+const flagPatchingAppInstanceResource = flag(
+  FLAG_PATCHING_APP_INSTANCE_RESOURCE
+);
+const flagDeletingAppInstanceResource = flag(
+  FLAG_DELETING_APP_INSTANCE_RESOURCE
+);
 
 const getAppInstanceResources = async ({
   userId,
@@ -35,7 +43,8 @@ const getAppInstanceResources = async ({
   try {
     const { appInstanceId, apiHost } = getApiContext(getState);
 
-    let url = `//${apiHost + APP_INSTANCE_RESOURCES_ENDPOINT}?appInstanceId=${appInstanceId}`;
+    let url = `//${apiHost +
+      APP_INSTANCE_RESOURCES_ENDPOINT}?appInstanceId=${appInstanceId}`;
 
     // only add userId or sessionId, not both
     if (userId) {
@@ -68,10 +77,10 @@ const getAppInstanceResources = async ({
   }
 };
 
-const postAppInstanceResource = async ({
-  data,
-  userId,
-} = {}) => async (dispatch, getState) => {
+const postAppInstanceResource = async ({ data, userId } = {}) => async (
+  dispatch,
+  getState
+) => {
   dispatch(flagPostingAppInstanceResource(true));
   try {
     const { appInstanceId, apiHost } = await getApiContext(getState);
@@ -86,13 +95,10 @@ const postAppInstanceResource = async ({
       user: userId,
     };
 
-    const response = await fetch(
-      url,
-      {
-        ...DEFAULT_POST_REQUEST,
-        body: JSON.stringify(body),
-      },
-    );
+    const response = await fetch(url, {
+      ...DEFAULT_POST_REQUEST,
+      body: JSON.stringify(body),
+    });
 
     // throws if it is an error
     await isErrorResponse(response);
@@ -113,16 +119,16 @@ const postAppInstanceResource = async ({
   }
 };
 
-const patchAppInstanceResource = async ({
-  id,
-  data,
-} = {}) => async (dispatch, getState) => {
+const patchAppInstanceResource = async ({ id, data } = {}) => async (
+  dispatch,
+  getState
+) => {
   dispatch(flagPatchingAppInstanceResource(true));
   try {
     const { apiHost } = await getApiContext(getState);
 
     if (!id) {
-      return alert('no app instance resource id specified');
+      return showErrorToast(MISSING_APP_INSTANCE_RESOURCE_ID_MESSAGE);
     }
 
     const url = `//${apiHost + APP_INSTANCE_RESOURCES_ENDPOINT}/${id}`;
@@ -131,13 +137,10 @@ const patchAppInstanceResource = async ({
       data,
     };
 
-    const response = await fetch(
-      url,
-      {
-        ...DEFAULT_PATCH_REQUEST,
-        body: JSON.stringify(body),
-      },
-    );
+    const response = await fetch(url, {
+      ...DEFAULT_PATCH_REQUEST,
+      body: JSON.stringify(body),
+    });
 
     // throws if it is an error
     await isErrorResponse(response);
@@ -164,7 +167,7 @@ const deleteAppInstanceResource = async id => async (dispatch, getState) => {
     const { apiHost } = await getApiContext(getState);
 
     if (!id) {
-      return alert('no app instance resource id specified');
+      return showErrorToast(MISSING_APP_INSTANCE_RESOURCE_ID_MESSAGE);
     }
 
     const url = `//${apiHost + APP_INSTANCE_RESOURCES_ENDPOINT}/${id}`;
