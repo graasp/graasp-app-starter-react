@@ -8,6 +8,7 @@ import {
   DELETE_APP_INSTANCE_RESOURCE_SUCCEEDED,
   DELETE_APP_INSTANCE_RESOURCE_FAILED,
 } from '../types';
+import { showErrorToast } from '../utils/toasts';
 
 // by default there are no app instance resources when the app starts
 const INITIAL_STATE = {
@@ -27,17 +28,14 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         // we do not want to mutate the state object, so we destructure it here
         ...state,
         // we assume that the payload is an object we do not have in our content
-        content: [
-          ...state.content,
-          payload,
-        ],
+        content: [...state.content, payload],
       };
     case PATCH_APP_INSTANCE_RESOURCE_SUCCEEDED:
       return {
         // we do not want to mutate the state object, so we destructure it here
         ...state,
         // we only replace the element that has been replaced
-        content: state.content.map((appInstanceResource) => {
+        content: state.content.map(appInstanceResource => {
           if (appInstanceResource._id !== payload._id) {
             return appInstanceResource;
           }
@@ -49,7 +47,9 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         // we do not want to mutate the state object, so we destructure it here
         ...state,
         content: [
-          ...state.content.filter(appInstanceResource => appInstanceResource._id !== payload),
+          ...state.content.filter(
+            appInstanceResource => appInstanceResource._id !== payload
+          ),
         ],
       };
 
@@ -58,7 +58,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     case PATCH_APP_INSTANCE_RESOURCE_FAILED:
     case DELETE_APP_INSTANCE_RESOURCE_FAILED:
       // show error to user
-      alert(payload);
+      showErrorToast(payload);
       return state;
 
     default:
