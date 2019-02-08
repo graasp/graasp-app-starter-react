@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.0"></a>
+
+# [0.4.0](https://github.com/graasp/graasp-app-starter-react/compare/v0.3.0...v0.4.0) (2019-02-08)
+
+### Bug Fixes
+
+- always start with .env.local as an environment file ([90a2d56](https://github.com/graasp/graasp-app-starter-react/commit/90a2d56)), closes [#62](https://github.com/graasp/graasp-app-starter-react/issues/62)
+
+### Features
+
+- show errors using toasts ([55c11c3](https://github.com/graasp/graasp-app-starter-react/commit/55c11c3)), closes [#53](https://github.com/graasp/graasp-app-starter-react/issues/53)
+- start api and web processes automatically ([12b86d2](https://github.com/graasp/graasp-app-starter-react/commit/12b86d2)), closes [#70](https://github.com/graasp/graasp-app-starter-react/issues/70)
+
 <a name="0.3.0"></a>
 
 # [0.3.0](https://github.com/react-epfl/graasp-app-starter-react/compare/v0.2.0...v0.3.0) (2019-02-06)
