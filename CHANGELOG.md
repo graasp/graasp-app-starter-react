@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.2"></a>
+
+## [0.4.2](https://github.com/graasp/graasp-app-starter-react/compare/v0.4.1...v0.4.2) (2019-02-08)
+
+### Bug Fixes
+
+- commit prettified changelog with standard version ([03862f7](https://github.com/graasp/graasp-app-starter-react/commit/03862f7)), closes [#75](https://github.com/graasp/graasp-app-starter-react/issues/75)
+- replace ttab with npm-run-all ([f0fdf6c](https://github.com/graasp/graasp-app-starter-react/commit/f0fdf6c)), closes [#74](https://github.com/graasp/graasp-app-starter-react/issues/74)
+
 <a name="0.4.1"></a>
 
 ## [0.4.1](https://github.com/graasp/graasp-app-starter-react/compare/v0.4.0...v0.4.1) (2019-02-08)
