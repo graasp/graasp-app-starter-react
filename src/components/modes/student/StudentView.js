@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withTranslation } from 'react-i18next';
 import { Alert, Container } from 'reactstrap';
+import { addQueryParamsToUrl } from '../../../utils/url';
 
 export const StudentView = ({ t }) => (
   <Container className="App App-body StudentView">
@@ -9,8 +10,12 @@ export const StudentView = ({ t }) => (
       {t(
         'This is the student view. Switch to the teacher view by clicking on the URL below.'
       )}
-      <a href="?mode=teacher">
-        <pre>{`${window.location.host}/?mode=teacher`}</pre>
+      <a href={addQueryParamsToUrl({ mode: 'teacher' })}>
+        <pre>
+          {`${window.location.host}/${addQueryParamsToUrl({
+            mode: 'teacher',
+          })}`}
+        </pre>
       </a>
     </Alert>
   </Container>

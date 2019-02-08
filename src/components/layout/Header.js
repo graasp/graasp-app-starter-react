@@ -7,6 +7,7 @@ import Select from 'react-select';
 import { options as langOptions } from '../../constants/langs';
 import { ReactComponent as Logo } from '../../resources/logo.svg';
 import './Header.css';
+import { addQueryParamsToUrl } from '../../utils/url';
 
 class Header extends Component {
   static propTypes = {
@@ -35,9 +36,9 @@ class Header extends Component {
     if (!appInstanceId) {
       return (
         <a
-          href={`${
-            window.location.search
-          }&appInstanceId=6156e70ab253020033364411`}
+          href={addQueryParamsToUrl({
+            appInstanceId: '6156e70ab253020033364411',
+          })}
           className="HeaderLink"
         >
           Use Sample App Instance
@@ -52,7 +53,7 @@ class Header extends Component {
     if (!spaceId) {
       return (
         <a
-          href={`${window.location.search}&spaceId=5b56e70ab253020033364411`}
+          href={addQueryParamsToUrl({ spaceId: '5b56e70ab253020033364411' })}
           className="HeaderLink"
         >
           Use Sample Space
