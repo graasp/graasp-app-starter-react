@@ -11,6 +11,7 @@ import {
   deleteAppInstanceResource,
 } from '../../../actions';
 import { getUsers } from '../../../actions/users';
+import { addQueryParamsToUrl } from '../../../utils/url';
 
 /**
  * helper method to render the rows of the app instance resource table
@@ -127,8 +128,12 @@ export class TeacherView extends Component {
           {t(
             'This is the teacher view. Switch to the student view by clicking on the URL below.'
           )}
-          <a href="?mode=student">
-            <pre>{`${window.location.host}/?mode=student`}</pre>
+          <a href={addQueryParamsToUrl({ mode: 'student' })}>
+            <pre>
+              {`${window.location.host}/${addQueryParamsToUrl({
+                mode: 'student',
+              })}`}
+            </pre>
           </a>
         </Alert>
         <h5>View the Students in the Sample Space</h5>
