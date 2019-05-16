@@ -3,6 +3,7 @@ import context from './context';
 import appInstanceResources from './appInstanceResources';
 import users from './users';
 import appInstance from './appInstance';
+import settings from './settings';
 
 export default combineReducers({
   // keys should always be lowercase
@@ -10,4 +11,5 @@ export default combineReducers({
   appInstanceResources,
   users,
   appInstance,
+  settings,
 });
