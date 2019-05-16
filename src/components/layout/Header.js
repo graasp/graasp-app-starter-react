@@ -87,10 +87,9 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = ({ settings }) => ({
-  lang: settings.lang,
-  appInstanceId: settings.appInstanceId,
-  spaceId: settings.spaceId,
+const mapStateToProps = ({ context }) => ({
+  appInstanceId: context.appInstanceId,
+  spaceId: context.spaceId,
 });
 
 const ConnectedComponent = connect(mapStateToProps)(Header);
