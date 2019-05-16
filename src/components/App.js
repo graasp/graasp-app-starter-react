@@ -4,7 +4,6 @@ import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import TeacherView from './modes/teacher/TeacherView';
 import StudentView from './modes/student/StudentView';
-import './App.css';
 import { getAppInstanceResources, getContext } from '../actions';
 import { DEFAULT_LANG, DEFAULT_MODE } from '../config/settings';
 import { getAppInstance } from '../actions/appInstance';

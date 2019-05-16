@@ -1,38 +1,43 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Row, Col } from 'reactstrap';
+import AppBar from '@material-ui/core/AppBar';
+import Typography from '@material-ui/core/Typography';
+import Toolbar from '@material-ui/core/Toolbar';
+import { withStyles } from '@material-ui/core/styles';
 import { withTranslation } from 'react-i18next';
-import Select from 'react-select';
-import { options as langOptions } from '../../constants/langs';
 import { ReactComponent as Logo } from '../../resources/logo.svg';
 import './Header.css';
 import { addQueryParamsToUrl } from '../../utils/url';
 
 class Header extends Component {
   static propTypes = {
-    i18n: PropTypes.shape({
-      defaultNS: PropTypes.string,
-    }).isRequired,
     t: PropTypes.func.isRequired,
-    lang: PropTypes.string.isRequired,
+    classes: PropTypes.shape({}).isRequired,
     appInstanceId: PropTypes.string,
     spaceId: PropTypes.string,
   };
+
+  static styles = theme => ({
+    root: {
+      flexGrow: 1,
+    },
+    grow: {
+      flexGrow: 1,
+    },
+    logo: {
+      height: '48px',
+      marginRight: theme.spacing.unit * 2,
+    },
+  });
 
   static defaultProps = {
     appInstanceId: null,
     spaceId: null,
   };
 
-  changeLanguage = selectedLanguage => {
-    const { i18n } = this.props;
-    const { value } = selectedLanguage;
-    i18n.changeLanguage(value);
-  };
-
   renderAppInstanceLink = () => {
-    const { appInstanceId } = this.props;
+    const { appInstanceId, t } = this.props;
     if (!appInstanceId) {
       return (
         <a
@@ -41,7 +46,7 @@ class Header extends Component {
           })}
           className="HeaderLink"
         >
-          Use Sample App Instance
+          {t('Use Sample App Instance')}
         </a>
       );
     }
@@ -49,14 +54,14 @@ class Header extends Component {
   };
 
   renderSpaceLink = () => {
-    const { spaceId } = this.props;
+    const { spaceId, t } = this.props;
     if (!spaceId) {
       return (
         <a
           href={addQueryParamsToUrl({ spaceId: '5b56e70ab253020033364411' })}
           className="HeaderLink"
         >
-          Use Sample Space
+          {t('Use Sample Space')}
         </a>
       );
     }
@@ -64,43 +69,30 @@ class Header extends Component {
   };
 
   render() {
-    const { t, lang } = this.props;
-    const selectedLanguage = langOptions.find(
-      langOption => langOption.value === lang
-    );
+    const { t, classes } = this.props;
     return (
-      <header className="App-header">
-        <Row>
-          <Col>
+      <header>
+        <AppBar position="static">
+          <Toolbar>
+            <Logo className={classes.logo} />
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              {t('Graasp App Starter')}
+            </Typography>
             {this.renderSpaceLink()}
             {this.renderAppInstanceLink()}
-          </Col>
-          <Col>
-            <Select
-              className="LanguageSelector"
-              // default selected value is the first language option
-              defaultValue={langOptions[0]}
-              options={langOptions}
-              value={selectedLanguage}
-              onChange={this.changeLanguage}
-            />
-          </Col>
-        </Row>
-        <Logo className="App-logo" />
-        <h1 className="App-title">
-          {t('Welcome to the Graasp App Starter Kit')}
-        </h1>
+          </Toolbar>
+        </AppBar>
       </header>
     );
   }
 }
 
 const mapStateToProps = ({ context }) => ({
-  lang: context.lang,
-  spaceId: context.spaceId,
   appInstanceId: context.appInstanceId,
+  spaceId: context.spaceId,
 });
 
-const ConnectedHeader = connect(mapStateToProps)(Header);
+const ConnectedComponent = connect(mapStateToProps)(Header);
+const TranslatedComponent = withTranslation()(ConnectedComponent);
 
-export default withTranslation()(ConnectedHeader);
+export default withStyles(Header.styles)(TranslatedComponent);

@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Alert, Container, Button, Table, ButtonGroup } from 'reactstrap';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import Select from 'react-select';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
@@ -27,41 +39,37 @@ const renderAppInstanceResources = (
   // if there are no resources, show an empty table
   if (!appInstanceResources.length) {
     return (
-      <tr>
-        <td colSpan={4}>No App Instance Resources</td>
-      </tr>
+      <TableRow>
+        <TableCell colSpan={4}>No App Instance Resources</TableCell>
+      </TableRow>
     );
   }
   // map each app instance resource to a row in the table
   return appInstanceResources.map(({ _id, appInstance, data }) => (
-    <tr key={_id}>
-      <th scope="row">{_id}</th>
-      <td>{appInstance}</td>
-      <td>{data.value}</td>
-      <td>
-        <ButtonGroup>
-          <Button
-            size="sm"
-            color="warning"
-            onClick={() =>
-              dispatchPatchAppInstanceResource({
-                id: _id,
-                data: { value: Math.random() },
-              })
-            }
-          >
-            Change
-          </Button>
-          <Button
-            size="sm"
-            color="danger"
-            onClick={() => dispatchDeleteAppInstanceResource(_id)}
-          >
-            Delete
-          </Button>
-        </ButtonGroup>
-      </td>
-    </tr>
+    <TableRow key={_id}>
+      <TableCell scope="row">{_id}</TableCell>
+      <TableCell>{appInstance}</TableCell>
+      <TableCell>{data.value}</TableCell>
+      <TableCell>
+        <IconButton
+          color="primary"
+          onClick={() =>
+            dispatchPatchAppInstanceResource({
+              id: _id,
+              data: { value: Math.random() },
+            })
+          }
+        >
+          <RefreshIcon />
+        </IconButton>
+        <IconButton
+          color="primary"
+          onClick={() => dispatchDeleteAppInstanceResource(_id)}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </TableCell>
+    </TableRow>
   ));
 };
 
@@ -76,6 +84,13 @@ const generateRandomAppInstanceResource = ({
 export class TeacherView extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
+    classes: PropTypes.shape({
+      root: PropTypes.object,
+      table: PropTypes.object,
+      main: PropTypes.object,
+      button: PropTypes.object,
+      message: PropTypes.object,
+    }).isRequired,
     dispatchGetUsers: PropTypes.func.isRequired,
     // inside the shape method you should put the shape
     // that the resources your app uses will have
@@ -96,6 +111,30 @@ export class TeacherView extends Component {
     ).isRequired,
   };
 
+  static styles = theme => ({
+    root: {
+      width: '100%',
+      marginTop: theme.spacing.unit * 3,
+      overflowX: 'auto',
+    },
+    main: {
+      textAlign: 'center',
+      margin: theme.spacing.unit,
+    },
+    button: {
+      marginTop: theme.spacing.unit * 3,
+    },
+    table: {
+      minWidth: 700,
+    },
+    message: {
+      padding: theme.spacing.unit,
+      backgroundColor: theme.status.danger.background[500],
+      color: theme.status.danger.color,
+      marginBottom: theme.spacing.unit * 2,
+    },
+  });
+
   state = {
     selectedStudent: null,
   };
@@ -115,7 +154,9 @@ export class TeacherView extends Component {
   render() {
     // extract properties from the props object
     const {
-      // this property allow us to do translations and is injected by i18next
+      // this property allows us to do styling and is injected by withStyles
+      classes,
+      // this property allows us to do translations and is injected by i18next
       t,
       // these properties are injected by the redux mapStateToProps method
       appInstanceResources,
@@ -123,51 +164,61 @@ export class TeacherView extends Component {
     } = this.props;
     const { selectedStudent } = this.state;
     return (
-      <Container fluid className="App App-body TeacherView">
-        <Alert color="primary">
-          {t(
-            'This is the teacher view. Switch to the student view by clicking on the URL below.'
-          )}
-          <a href={addQueryParamsToUrl({ mode: 'student' })}>
-            <pre>
-              {`${window.location.host}/${addQueryParamsToUrl({
-                mode: 'student',
-              })}`}
-            </pre>
-          </a>
-        </Alert>
-        <h5>View the Students in the Sample Space</h5>
-        <Select
-          className="StudentSelect"
-          value={selectedStudent}
-          options={studentOptions}
-          onChange={this.handleChangeStudent}
-          isClearable
-        />
-        <hr />
-        <h5>
-          This table illustrates how an app can save resources on the server.
-        </h5>
-        <Table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>App Instance</th>
-              <th>Value</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {renderAppInstanceResources(appInstanceResources, this.props)}
-          </tbody>
-        </Table>
-        <Button
-          color="primary"
-          onClick={() => generateRandomAppInstanceResource(this.props)}
-        >
-          Save a Random App Instance Resource via the API
-        </Button>
-      </Container>
+      <Grid container spacing={24}>
+        <Grid item xs={12} className={classes.main}>
+          <Paper className={classes.message}>
+            {t(
+              'This is the teacher view. Switch to the student view by clicking on the URL below.'
+            )}
+            <a href={addQueryParamsToUrl({ mode: 'student' })}>
+              <pre>
+                {`${window.location.host}/${addQueryParamsToUrl({
+                  mode: 'student',
+                })}`}
+              </pre>
+            </a>
+          </Paper>
+          <Typography variant="h5" color="inherit">
+            {t('View the Students in the Sample Space')}
+          </Typography>
+          <Select
+            className="StudentSelect"
+            value={selectedStudent}
+            options={studentOptions}
+            onChange={this.handleChangeStudent}
+            isClearable
+          />
+          <hr />
+          <Typography variant="h6" color="inherit">
+            {t(
+              'This table illustrates how an app can save resources on the server.'
+            )}
+          </Typography>
+          <Paper className={classes.root}>
+            <Table className={classes.table}>
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>App Instance</TableCell>
+                  <TableCell>Value</TableCell>
+                  <TableCell>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {renderAppInstanceResources(appInstanceResources, this.props)}
+              </TableBody>
+            </Table>
+          </Paper>
+          <Button
+            color="primary"
+            className={classes.button}
+            variant="contained"
+            onClick={() => generateRandomAppInstanceResource(this.props)}
+          >
+            {t('Save a Random App Instance Resource via the API')}
+          </Button>
+        </Grid>
+      </Grid>
     );
   }
 }
@@ -201,4 +252,6 @@ const ConnectedComponent = connect(
   mapDispatchToProps
 )(TeacherView);
 
-export default withTranslation()(ConnectedComponent);
+const StyledComponent = withStyles(TeacherView.styles)(ConnectedComponent);
+
+export default withTranslation()(StyledComponent);
