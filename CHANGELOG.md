@@ -1,6 +1,25 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [0.5.0](https://github.com/graasp/graasp-app-starter-react/compare/v0.4.2...v0.5.0) (2019-05-16)
+
+### Bug Fixes
+
+- do not sample links when already active ([caf1947](https://github.com/graasp/graasp-app-starter-react/commit/caf1947))
+
+### Build System
+
+- remove setup script ([fe0b9a9](https://github.com/graasp/graasp-app-starter-react/commit/fe0b9a9)), closes [#78](https://github.com/graasp/graasp-app-starter-react/issues/78)
+- remove ttab scripts ([88d44c5](https://github.com/graasp/graasp-app-starter-react/commit/88d44c5)), closes [#84](https://github.com/graasp/graasp-app-starter-react/issues/84)
+- update dependencies ([804654b](https://github.com/graasp/graasp-app-starter-react/commit/804654b))
+- upgrade env-cmd ([ef14047](https://github.com/graasp/graasp-app-starter-react/commit/ef14047)), closes [#82](https://github.com/graasp/graasp-app-starter-react/issues/82)
+
+### Features
+
+- add deploy script ([cf65bea](https://github.com/graasp/graasp-app-starter-react/commit/cf65bea)), closes [#77](https://github.com/graasp/graasp-app-starter-react/issues/77)
+- ignore files using graaspignore ([56431f3](https://github.com/graasp/graasp-app-starter-react/commit/56431f3)), closes [#80](https://github.com/graasp/graasp-app-starter-react/issues/80)
+- use material-ui by default ([a505b52](https://github.com/graasp/graasp-app-starter-react/commit/a505b52)), closes [#79](https://github.com/graasp/graasp-app-starter-react/issues/79)
 
 <a name="0.4.2"></a>
 
