@@ -35,8 +35,6 @@
     "start:local": "env-cmd ./.env.local react-scripts start",
     "start:api": "json-server --watch data/db.json --port 3636 --id _id --routes data/routes.json",
     "prestart:api": "cat data/default.json > data/db.json",
-    "tab:start:api": "ttab -t 'Graasp API' -G npm run start:api",
-    "tab:start:local": "ttab -t 'Graasp App' -G npm run start:local",
     "build": "run-s build:react build:bundle",
     "build:react": "react-scripts build",
     "build:bundle": "webpack --config webpack.config.js --mode=production",
