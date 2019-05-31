@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { toast } from 'react-toastify';
 import {
   FAILED_TO_FETCH_MESSAGE_RAW,
@@ -7,9 +8,9 @@ import {
 
 const showErrorToast = payload => {
   let message = UNEXPECTED_ERROR_MESSAGE;
-  if (payload instanceof String) {
+  if (_.isString(payload)) {
     message = payload;
-  } else if (payload instanceof Object) {
+  } else if (_.isObject(payload)) {
     if (payload.message) {
       ({ message } = payload);
     }
@@ -21,7 +22,8 @@ const showErrorToast = payload => {
 
   toast.error(message, {
     toastId: message,
-    autoClose: false,
+    autoClose: true,
+    position: 'bottom-right',
   });
 };
 
