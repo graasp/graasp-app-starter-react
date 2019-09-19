@@ -51,7 +51,7 @@
     "test:once": "cross-env CI=true env-cmd -f ./.env.test react-scripts test --env=jsdom",
     "test:coverage": "react-scripts test --env=jsdom --coverage",
     "test:ci": "run-s test:coverage report",
-    "report": "cat ./coverage/lcov.info | env-cmd -f ./.env.test codacy-coverage",
+    "report": "cat ./coverage/lcov.info | codacy-coverage",
     "eject": "react-scripts eject",
     "release": "git add CHANGELOG.md && standard-version -a"
   },
