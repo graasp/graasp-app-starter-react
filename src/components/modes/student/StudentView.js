@@ -41,8 +41,8 @@ export const StudentView = ({ t, classes }) => (
 StudentView.propTypes = {
   t: PropTypes.func.isRequired,
   classes: PropTypes.shape({
-    main: PropTypes.object,
-    message: PropTypes.object,
+    main: PropTypes.string,
+    message: PropTypes.string,
   }).isRequired,
 };
 

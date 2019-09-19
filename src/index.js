@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import Root from './components/Root';
-import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore';
 import './index.css';
 
@@ -29,5 +28,3 @@ if (module.hot) {
     renderApp(NextRoot, store, history);
   });
 }
-
-registerServiceWorker();

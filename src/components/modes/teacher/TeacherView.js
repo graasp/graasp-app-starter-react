@@ -6,6 +6,8 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
+import Fab from '@material-ui/core/Fab';
+import SettingsIcon from '@material-ui/icons/Settings';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -21,9 +23,11 @@ import {
   patchAppInstanceResource,
   postAppInstanceResource,
   deleteAppInstanceResource,
+  openSettings,
 } from '../../../actions';
 import { getUsers } from '../../../actions/users';
 import { addQueryParamsToUrl } from '../../../utils/url';
+import Settings from './Settings';
 
 /**
  * helper method to render the rows of the app instance resource table
@@ -84,12 +88,13 @@ const generateRandomAppInstanceResource = ({
 export class TeacherView extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
+    dispatchOpenSettings: PropTypes.func.isRequired,
     classes: PropTypes.shape({
-      root: PropTypes.object,
-      table: PropTypes.object,
-      main: PropTypes.object,
-      button: PropTypes.object,
-      message: PropTypes.object,
+      root: PropTypes.string,
+      table: PropTypes.string,
+      main: PropTypes.string,
+      button: PropTypes.string,
+      message: PropTypes.string,
     }).isRequired,
     dispatchGetUsers: PropTypes.func.isRequired,
     // inside the shape method you should put the shape
@@ -133,6 +138,12 @@ export class TeacherView extends Component {
       color: theme.status.danger.color,
       marginBottom: theme.spacing.unit * 2,
     },
+    fab: {
+      margin: theme.spacing.unit,
+      position: 'fixed',
+      bottom: theme.spacing.unit * 2,
+      right: theme.spacing.unit * 2,
+    },
   });
 
   state = {
@@ -161,64 +172,76 @@ export class TeacherView extends Component {
       // these properties are injected by the redux mapStateToProps method
       appInstanceResources,
       studentOptions,
+      dispatchOpenSettings,
     } = this.props;
     const { selectedStudent } = this.state;
     return (
-      <Grid container spacing={24}>
-        <Grid item xs={12} className={classes.main}>
-          <Paper className={classes.message}>
-            {t(
-              'This is the teacher view. Switch to the student view by clicking on the URL below.'
-            )}
-            <a href={addQueryParamsToUrl({ mode: 'student' })}>
-              <pre>
-                {`${window.location.host}/${addQueryParamsToUrl({
-                  mode: 'student',
-                })}`}
-              </pre>
-            </a>
-          </Paper>
-          <Typography variant="h5" color="inherit">
-            {t('View the Students in the Sample Space')}
-          </Typography>
-          <Select
-            className="StudentSelect"
-            value={selectedStudent}
-            options={studentOptions}
-            onChange={this.handleChangeStudent}
-            isClearable
-          />
-          <hr />
-          <Typography variant="h6" color="inherit">
-            {t(
-              'This table illustrates how an app can save resources on the server.'
-            )}
-          </Typography>
-          <Paper className={classes.root}>
-            <Table className={classes.table}>
-              <TableHead>
-                <TableRow>
-                  <TableCell>ID</TableCell>
-                  <TableCell>App Instance</TableCell>
-                  <TableCell>Value</TableCell>
-                  <TableCell>Actions</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {renderAppInstanceResources(appInstanceResources, this.props)}
-              </TableBody>
-            </Table>
-          </Paper>
-          <Button
-            color="primary"
-            className={classes.button}
-            variant="contained"
-            onClick={() => generateRandomAppInstanceResource(this.props)}
-          >
-            {t('Save a Random App Instance Resource via the API')}
-          </Button>
+      <>
+        <Grid container spacing={0}>
+          <Grid item xs={12} className={classes.main}>
+            <Paper className={classes.message}>
+              {t(
+                'This is the teacher view. Switch to the student view by clicking on the URL below.'
+              )}
+              <a href={addQueryParamsToUrl({ mode: 'student' })}>
+                <pre>
+                  {`${window.location.host}/${addQueryParamsToUrl({
+                    mode: 'student',
+                  })}`}
+                </pre>
+              </a>
+            </Paper>
+            <Typography variant="h5" color="inherit">
+              {t('View the Students in the Sample Space')}
+            </Typography>
+            <Select
+              className="StudentSelect"
+              value={selectedStudent}
+              options={studentOptions}
+              onChange={this.handleChangeStudent}
+              isClearable
+            />
+            <hr />
+            <Typography variant="h6" color="inherit">
+              {t(
+                'This table illustrates how an app can save resources on the server.'
+              )}
+            </Typography>
+            <Paper className={classes.root}>
+              <Table className={classes.table}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>ID</TableCell>
+                    <TableCell>App Instance</TableCell>
+                    <TableCell>Value</TableCell>
+                    <TableCell>Actions</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {renderAppInstanceResources(appInstanceResources, this.props)}
+                </TableBody>
+              </Table>
+            </Paper>
+            <Button
+              color="primary"
+              className={classes.button}
+              variant="contained"
+              onClick={() => generateRandomAppInstanceResource(this.props)}
+            >
+              {t('Save a Random App Instance Resource via the API')}
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
+        <Settings />
+        <Fab
+          color="primary"
+          aria-label={t('Settings')}
+          className={classes.fab}
+          onClick={dispatchOpenSettings}
+        >
+          <SettingsIcon />
+        </Fab>
+      </>
     );
   }
 }
@@ -245,6 +268,7 @@ const mapDispatchToProps = {
   dispatchPostAppInstanceResource: postAppInstanceResource,
   dispatchPatchAppInstanceResource: patchAppInstanceResource,
   dispatchDeleteAppInstanceResource: deleteAppInstanceResource,
+  dispatchOpenSettings: openSettings,
 };
 
 const ConnectedComponent = connect(

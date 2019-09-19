@@ -1,6 +1,7 @@
-import { flag, getApiContext, isErrorResponse } from './common';
+import { flag, getApiContext, isErrorResponse, postMessage } from './common';
 import {
   FLAG_GETTING_USERS,
+  GET_USERS,
   GET_USERS_FAILED,
   GET_USERS_SUCCEEDED,
 } from '../types';
@@ -15,7 +16,14 @@ const flagGettingUsers = flag(FLAG_GETTING_USERS);
 const getUsers = async () => async (dispatch, getState) => {
   dispatch(flagGettingUsers(true));
   try {
-    const { spaceId, apiHost } = getApiContext(getState);
+    const { spaceId, apiHost, offline } = getApiContext(getState);
+
+    // if offline send message to parent requesting resources
+    if (offline) {
+      return postMessage({
+        type: GET_USERS,
+      });
+    }
 
     const url = `//${apiHost + SPACES_ENDPOINT}/${spaceId}/${USERS_ENDPOINT}`;
 
