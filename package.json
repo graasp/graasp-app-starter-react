@@ -49,7 +49,7 @@
     "prettier": "prettier --check 'src/**/*.js'",
     "test": "react-scripts test",
     "test:once": "cross-env CI=true env-cmd -f ./.env.test react-scripts test --env=jsdom",
-    "test:coverage": "cross-env CI=true env-cmd -f ./.env.test react-scripts test --env=jsdom --coverage",
+    "test:coverage": "react-scripts test --env=jsdom --coverage",
     "test:ci": "run-s test:coverage report",
     "report": "cat ./coverage/lcov.info | env-cmd -f ./.env.test codacy-coverage",
     "eject": "react-scripts eject",
