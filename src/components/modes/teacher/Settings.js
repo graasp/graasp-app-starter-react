@@ -146,7 +146,7 @@ const mapDispatchToProps = {
 
 const ConnectedComponent = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Settings);
 const TranslatedComponent = withTranslation()(ConnectedComponent);
 

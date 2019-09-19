@@ -116,7 +116,7 @@ const mapDispatchToProps = {
 
 const ConnectedApp = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(App);
 
 export default withTranslation()(ConnectedApp);

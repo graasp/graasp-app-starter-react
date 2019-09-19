@@ -38,7 +38,7 @@ import Settings from './Settings';
  */
 const renderAppInstanceResources = (
   appInstanceResources,
-  { dispatchPatchAppInstanceResource, dispatchDeleteAppInstanceResource }
+  { dispatchPatchAppInstanceResource, dispatchDeleteAppInstanceResource },
 ) => {
   // if there are no resources, show an empty table
   if (!appInstanceResources.length) {
@@ -106,14 +106,14 @@ export class TeacherView extends Component {
         _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         appInstanceId: PropTypes.string,
         data: PropTypes.object,
-      })
+      }),
     ),
     // this is the shape of the select options for students
     studentOptions: PropTypes.arrayOf(
       PropTypes.shape({
         label: PropTypes.string,
         value: PropTypes.string,
-      })
+      }),
     ).isRequired,
   };
 
@@ -186,7 +186,7 @@ export class TeacherView extends Component {
           <Grid item xs={12} className={classes.main}>
             <Paper className={classes.message}>
               {t(
-                'This is the teacher view. Switch to the student view by clicking on the URL below.'
+                'This is the teacher view. Switch to the student view by clicking on the URL below.',
               )}
               <a href={addQueryParamsToUrl({ mode: 'student' })}>
                 <pre>
@@ -209,7 +209,7 @@ export class TeacherView extends Component {
             <hr />
             <Typography variant="h6" color="inherit">
               {t(
-                'This table illustrates how an app can save resources on the server.'
+                'This table illustrates how an app can save resources on the server.',
               )}
             </Typography>
             <Paper className={classes.root}>
@@ -274,7 +274,7 @@ const mapDispatchToProps = {
 
 const ConnectedComponent = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(TeacherView);
 
 const StyledComponent = withStyles(TeacherView.styles)(ConnectedComponent);

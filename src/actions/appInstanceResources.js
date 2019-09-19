@@ -29,14 +29,14 @@ import { MISSING_APP_INSTANCE_RESOURCE_ID_MESSAGE } from '../constants/messages'
 import { APP_INSTANCE_RESOURCE_FORMAT } from '../config/formats';
 
 const flagGettingAppInstanceResources = flag(
-  FLAG_GETTING_APP_INSTANCE_RESOURCES
+  FLAG_GETTING_APP_INSTANCE_RESOURCES,
 );
 const flagPostingAppInstanceResource = flag(FLAG_POSTING_APP_INSTANCE_RESOURCE);
 const flagPatchingAppInstanceResource = flag(
-  FLAG_PATCHING_APP_INSTANCE_RESOURCE
+  FLAG_PATCHING_APP_INSTANCE_RESOURCE,
 );
 const flagDeletingAppInstanceResource = flag(
-  FLAG_DELETING_APP_INSTANCE_RESOURCE
+  FLAG_DELETING_APP_INSTANCE_RESOURCE,
 );
 
 const getAppInstanceResources = async ({
@@ -103,7 +103,7 @@ const getAppInstanceResources = async ({
 
 const postAppInstanceResource = async ({ data, userId, type } = {}) => async (
   dispatch,
-  getState
+  getState,
 ) => {
   dispatch(flagPostingAppInstanceResource(true));
   try {
@@ -169,7 +169,7 @@ const postAppInstanceResource = async ({ data, userId, type } = {}) => async (
 
 const patchAppInstanceResource = async ({ id, data } = {}) => async (
   dispatch,
-  getState
+  getState,
 ) => {
   dispatch(flagPatchingAppInstanceResource(true));
   try {

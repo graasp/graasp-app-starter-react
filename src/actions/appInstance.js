@@ -67,7 +67,7 @@ const getAppInstance = async () => async (dispatch, getState) => {
 
 const patchAppInstance = async ({ data } = {}) => async (
   dispatch,
-  getState
+  getState,
 ) => {
   dispatch(flagPatchingAppInstance(true));
   try {

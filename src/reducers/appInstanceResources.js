@@ -70,7 +70,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         content: [
           ...state.content.filter(
-            appInstanceResource => appInstanceResource._id !== payload
+            appInstanceResource => appInstanceResource._id !== payload,
           ),
         ],
       };

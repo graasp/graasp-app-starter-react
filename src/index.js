@@ -12,7 +12,7 @@ const renderApp = (RootComponent, store) => {
     <Provider store={store}>
       <RootComponent />
     </Provider>,
-    root
+    root,
   );
 };
 

@@ -14,7 +14,7 @@ const configure = state => {
   const store = createStore(
     reducers,
     state,
-    composeWithDevTools(applyMiddleware(ReduxThunk, ReduxPromise))
+    composeWithDevTools(applyMiddleware(ReduxThunk, ReduxPromise)),
   );
   return {
     store,

@@ -24,7 +24,7 @@ export const StudentView = ({ t, classes }) => (
     <Grid item xs={12} className={classes.main}>
       <Paper className={classes.message}>
         {t(
-          'This is the student view. Switch to the teacher view by clicking on the URL below.'
+          'This is the student view. Switch to the teacher view by clicking on the URL below.',
         )}
         <a href={addQueryParamsToUrl({ mode: 'teacher' })}>
           <pre>

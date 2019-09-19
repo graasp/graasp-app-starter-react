@@ -59,7 +59,7 @@ const mapDispatchToProps = {
 
 const ConnectedComponent = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(TeacherMode);
 
 export default ConnectedComponent;
