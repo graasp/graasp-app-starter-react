@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
@@ -15,6 +15,7 @@ export class App extends Component {
   static propTypes = {
     i18n: PropTypes.shape({
       defaultNS: PropTypes.string,
+      changeLanguage: PropTypes.func,
     }).isRequired,
     dispatchGetContext: PropTypes.func.isRequired,
     dispatchGetAppInstance: PropTypes.func.isRequired,
@@ -78,10 +79,10 @@ export class App extends Component {
       case 'educator':
       case 'admin':
         return (
-          <Fragment>
+          <>
             <Header />
             <TeacherMode view={view} />
-          </Fragment>
+          </>
         );
 
       // by default go with the consumer (learner) mode
@@ -90,10 +91,10 @@ export class App extends Component {
       case 'learner':
       default:
         return (
-          <Fragment>
+          <>
             {headerVisible ? <Header /> : null}
             <StudentView />
-          </Fragment>
+          </>
         );
     }
   }

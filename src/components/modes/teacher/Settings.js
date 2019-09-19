@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -36,7 +36,9 @@ const styles = theme => ({
 
 class Settings extends Component {
   static propTypes = {
-    classes: PropTypes.shape({}).isRequired,
+    classes: PropTypes.shape({
+      paper: PropTypes.string,
+    }).isRequired,
     open: PropTypes.bool.isRequired,
     activity: PropTypes.bool.isRequired,
     settings: PropTypes.shape({
@@ -94,12 +96,12 @@ class Settings extends Component {
     );
 
     return (
-      <Fragment>
+      <>
         <FormControlLabel
           control={switchControl}
           label={t('Show Header to Students')}
         />
-      </Fragment>
+      </>
     );
   }
 

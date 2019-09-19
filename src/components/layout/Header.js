@@ -13,7 +13,10 @@ import { addQueryParamsToUrl } from '../../utils/url';
 class Header extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
-    classes: PropTypes.shape({}).isRequired,
+    classes: PropTypes.shape({
+      logo: PropTypes.string,
+      grow: PropTypes.string,
+    }).isRequired,
     appInstanceId: PropTypes.string,
     spaceId: PropTypes.string,
   };

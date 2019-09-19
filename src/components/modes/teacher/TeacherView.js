@@ -57,12 +57,12 @@ const renderAppInstanceResources = (
       <TableCell>
         <IconButton
           color="primary"
-          onClick={() =>
+          onClick={() => {
             dispatchPatchAppInstanceResource({
               id: _id,
               data: { value: Math.random() },
-            })
-          }
+            });
+          }}
         >
           <RefreshIcon />
         </IconButton>
@@ -95,6 +95,7 @@ export class TeacherView extends Component {
       main: PropTypes.string,
       button: PropTypes.string,
       message: PropTypes.string,
+      fab: PropTypes.string,
     }).isRequired,
     dispatchGetUsers: PropTypes.func.isRequired,
     // inside the shape method you should put the shape
@@ -114,6 +115,10 @@ export class TeacherView extends Component {
         value: PropTypes.string,
       })
     ).isRequired,
+  };
+
+  static defaultProps = {
+    appInstanceResources: [],
   };
 
   static styles = theme => ({
@@ -245,10 +250,6 @@ export class TeacherView extends Component {
     );
   }
 }
-
-TeacherView.defaultProps = {
-  appInstanceResources: [],
-};
 
 // get the app instance resources that are saved in the redux store
 const mapStateToProps = ({ users, appInstanceResources }) => ({
