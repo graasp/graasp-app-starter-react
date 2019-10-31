@@ -53,7 +53,8 @@
     "test:ci": "run-s test:coverage report",
     "report": "cat ./coverage/lcov.info | codacy-coverage",
     "eject": "react-scripts eject",
-    "release": "git add CHANGELOG.md && standard-version -a"
+    "release": "git add CHANGELOG.md && standard-version -a",
+    "release:first": "git add CHANGELOG.md && standard-version -a --first-release"
   },
   "devDependencies": {
     "@commitlint/cli": "8.2.0",
