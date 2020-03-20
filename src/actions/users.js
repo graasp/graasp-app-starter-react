@@ -16,7 +16,12 @@ const flagGettingUsers = flag(FLAG_GETTING_USERS);
 const getUsers = async () => async (dispatch, getState) => {
   dispatch(flagGettingUsers(true));
   try {
-    const { spaceId, apiHost, offline } = getApiContext(getState);
+    const { spaceId, apiHost, offline, standalone } = getApiContext(getState);
+
+    // if standalone, you cannot connect to api
+    if (standalone) {
+      return false;
+    }
 
     // if offline send message to parent requesting resources
     if (offline) {

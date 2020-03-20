@@ -27,7 +27,13 @@ const getAppInstance = async () => async (dispatch, getState) => {
       offline,
       spaceId,
       subSpaceId,
+      standalone,
     } = getApiContext(getState);
+
+    // if standalone, you cannot connect to api
+    if (standalone) {
+      return false;
+    }
 
     // if offline send message to parent requesting resources
     if (offline) {
@@ -71,7 +77,14 @@ const patchAppInstance = async ({ data } = {}) => async (
 ) => {
   dispatch(flagPatchingAppInstance(true));
   try {
-    const { appInstanceId, apiHost, offline } = getApiContext(getState);
+    const { appInstanceId, apiHost, offline, standalone } = getApiContext(
+      getState,
+    );
+
+    // if standalone, you cannot connect to api
+    if (standalone) {
+      return false;
+    }
 
     // if offline send message to parent requesting resources
     if (offline) {
