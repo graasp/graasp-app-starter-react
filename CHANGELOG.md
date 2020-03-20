@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.1](https://github.com/graasp/graasp-app-starter-react/compare/v0.5.0...v0.5.1) (2020-03-20)
+
+### Features
+
+- include updates from recent apps ([fe353f8](https://github.com/graasp/graasp-app-starter-react/commit/fe353f8d62945d741b9e58c5e7648811678b7bd5))
+- update api and structure ([7daaf3c](https://github.com/graasp/graasp-app-starter-react/commit/7daaf3ca8500394f830444c725da2c255c40ed1f)), closes [#83](https://github.com/graasp/graasp-app-starter-react/issues/83)
+
+### Bug Fixes
+
+- allow coverage to run in codeship ([e2d83b6](https://github.com/graasp/graasp-app-starter-react/commit/e2d83b63e5f53e5f5e9134b67e1472e8a7e6eea1))
+- allow tests to run in codeship ([538a401](https://github.com/graasp/graasp-app-starter-react/commit/538a401e0632070cd2d475cd9b8b17c9e548ab12))
+- set a minimum height when embedded ([3b8113e](https://github.com/graasp/graasp-app-starter-react/commit/3b8113ebf91a6db57658975da738e31b973d2155))
+- show error messages correctly ([7c9167c](https://github.com/graasp/graasp-app-starter-react/commit/7c9167c9c6a4c355b86c13c226232d1a204796dc)), closes [#89](https://github.com/graasp/graasp-app-starter-react/issues/89)
+
 ## [0.5.0](https://github.com/graasp/graasp-app-starter-react/compare/v0.4.2...v0.5.0) (2019-05-16)
 
 ### Bug Fixes
