@@ -1,6 +1,6 @@
 const path = require('path');
 const glob = require('glob');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
@@ -8,20 +8,21 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 // from: https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/config/env.js
 // grab react app environment variables
 const REACT_APP = /^REACT_APP_/i;
-const REACT_ENV = Object
-  .keys(process.env)
+const REACT_ENV = Object.keys(process.env)
   .filter(key => REACT_APP.test(key))
-  .reduce((env, key) => {
-    // eslint-disable-next-line no-param-reassign
-    env[key] = process.env[key];
-    return env;
-  },
-  {
-    // minified version should always be in production
-    NODE_ENV: 'production',
-    // minified version should always relative base
-    PUBLIC_URL: '.',
-  });
+  .reduce(
+    (env, key) => {
+      // eslint-disable-next-line no-param-reassign
+      env[key] = process.env[key];
+      return env;
+    },
+    {
+      // minified version should always be in production
+      NODE_ENV: 'production',
+      // minified version should always relative base
+      PUBLIC_URL: '.',
+    },
+  );
 
 module.exports = {
   entry: {
@@ -42,7 +43,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new UglifyJsPlugin(),
+    new TerserPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'public/index.html',
