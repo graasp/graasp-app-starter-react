@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.2](https://github.com/graasp/graasp-app-starter-react/compare/v0.5.1...v0.5.2) (2020-03-20)
+
+### Bug Fixes
+
+- use terser plugin for obfuscation ([a0ddd3f](https://github.com/graasp/graasp-app-starter-react/commit/a0ddd3fa698d3431ffb3cfe02203816b3cc00b3d))
+
 ### [0.5.1](https://github.com/graasp/graasp-app-starter-react/compare/v0.5.0...v0.5.1) (2020-03-20)
 
 ### Features
