@@ -16,8 +16,12 @@ const INITIAL_STATE = {
   appInstanceId: null,
   spaceId: null,
   subSpaceId: null,
+  parentSpaceId: null,
   userId: null,
   offline: false,
+  reviewerId: null,
+  reviewing: false,
+  standalone: false,
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {

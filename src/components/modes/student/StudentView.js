@@ -9,18 +9,18 @@ import { addQueryParamsToUrl } from '../../../utils/url';
 const styles = theme => ({
   main: {
     textAlign: 'center',
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
   },
   message: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(),
     backgroundColor: theme.status.danger.background[500],
     color: theme.status.danger.color,
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
 });
 
 export const StudentView = ({ t, classes }) => (
-  <Grid container spacing={24}>
+  <Grid container spacing={10}>
     <Grid item xs={12} className={classes.main}>
       <Paper className={classes.message}>
         {t(

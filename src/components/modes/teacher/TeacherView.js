@@ -124,30 +124,30 @@ export class TeacherView extends Component {
   static styles = theme => ({
     root: {
       width: '100%',
-      marginTop: theme.spacing.unit * 3,
+      marginTop: theme.spacing(3),
       overflowX: 'auto',
     },
     main: {
       textAlign: 'center',
-      margin: theme.spacing.unit,
+      margin: theme.spacing(),
     },
     button: {
-      marginTop: theme.spacing.unit * 3,
+      marginTop: theme.spacing(3),
     },
     table: {
       minWidth: 700,
     },
     message: {
-      padding: theme.spacing.unit,
+      padding: theme.spacing(),
       backgroundColor: theme.status.danger.background[500],
       color: theme.status.danger.color,
-      marginBottom: theme.spacing.unit * 2,
+      marginBottom: theme.spacing(2),
     },
     fab: {
-      margin: theme.spacing.unit,
+      margin: theme.spacing(),
       position: 'fixed',
-      bottom: theme.spacing.unit * 2,
-      right: theme.spacing.unit * 2,
+      bottom: theme.spacing(2),
+      right: theme.spacing(2),
     },
   });
 

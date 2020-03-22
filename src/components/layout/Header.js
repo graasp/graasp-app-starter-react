@@ -30,7 +30,7 @@ class Header extends Component {
     },
     logo: {
       height: '48px',
-      marginRight: theme.spacing.unit * 2,
+      marginRight: theme.spacing(2),
     },
   });
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import StudentView from './modes/student/StudentView';
+import StudentMode from './modes/student/StudentMode';
 import { getContext } from '../actions';
 import { DEFAULT_LANG, DEFAULT_MODE } from '../config/settings';
 import { DEFAULT_VIEW } from '../config/views';
@@ -25,6 +25,7 @@ export class App extends Component {
     view: PropTypes.string,
     headerVisible: PropTypes.bool.isRequired,
     ready: PropTypes.bool.isRequired,
+    standalone: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -66,7 +67,7 @@ export class App extends Component {
   };
 
   render() {
-    const { mode, view, headerVisible, ready } = this.props;
+    const { mode, view, headerVisible, ready, standalone } = this.props;
 
     if (!ready) {
       return <Loader />;
@@ -92,8 +93,8 @@ export class App extends Component {
       default:
         return (
           <>
-            {headerVisible ? <Header /> : null}
-            <StudentView />
+            {headerVisible || standalone ? <Header /> : null}
+            <StudentMode />
           </>
         );
     }
@@ -107,6 +108,7 @@ const mapStateToProps = ({ context, appInstance }) => ({
   view: context.view,
   appInstanceId: context.appInstanceId,
   ready: appInstance.ready,
+  standalone: context.standalone,
 });
 
 const mapDispatchToProps = {
@@ -114,9 +116,6 @@ const mapDispatchToProps = {
   dispatchGetAppInstance: getAppInstance,
 };
 
-const ConnectedApp = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App);
+const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
 
 export default withTranslation()(ConnectedApp);
