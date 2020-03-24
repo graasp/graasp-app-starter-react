@@ -26,7 +26,14 @@ const postAction = async ({
       spaceId,
       subSpaceId,
       standalone,
+      analytics,
     } = getApiContext(getState);
+
+    // if analytics is not turned on, abort
+    // todo: post message analytics + ensure that desktop keeps analytics
+    if (!analytics) {
+      return false;
+    }
 
     // if standalone, you cannot connect to api
     if (standalone) {

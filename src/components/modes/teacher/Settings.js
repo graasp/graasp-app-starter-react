@@ -43,6 +43,7 @@ class Settings extends Component {
     activity: PropTypes.bool.isRequired,
     settings: PropTypes.shape({
       headerVisible: PropTypes.bool.isRequired,
+      studentsOnly: PropTypes.bool.isRequired,
     }).isRequired,
     t: PropTypes.func.isRequired,
     dispatchCloseSettings: PropTypes.func.isRequired,
@@ -96,12 +97,10 @@ class Settings extends Component {
     );
 
     return (
-      <>
-        <FormControlLabel
-          control={switchControl}
-          label={t('Show Header to Students')}
-        />
-      </>
+      <FormControlLabel
+        control={switchControl}
+        label={t('Show Header to Students')}
+      />
     );
   }
 
@@ -131,10 +130,7 @@ class Settings extends Component {
 const mapStateToProps = ({ layout, appInstance }) => {
   return {
     open: layout.settings.open,
-    settings: {
-      // by default this is true
-      headerVisible: appInstance.content.settings.headerVisible,
-    },
+    settings: appInstance.content.settings,
     activity: Boolean(appInstance.activity.length),
   };
 };

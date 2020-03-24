@@ -34,11 +34,13 @@ const getContext = () => dispatch => {
       offline = 'false',
       dev = 'false',
       reviewing = 'false',
+      analytics = 'true',
     } = Qs.parse(window.location.search, { ignoreQueryPrefix: true });
 
     const offlineBool = offline === 'true';
     const devBool = dev === 'true';
     const reviewingBool = reviewing === 'true';
+    const analyticsBool = analytics === 'true';
 
     const standalone = !devBool && !isInFrame();
 
@@ -58,6 +60,7 @@ const getContext = () => dispatch => {
       offline: offlineBool,
       dev: devBool,
       reviewing: reviewingBool,
+      analytics: analyticsBool,
     };
 
     // if offline, we need to set up the listeners here
