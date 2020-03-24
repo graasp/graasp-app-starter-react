@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.4](https://github.com/graasp/graasp-app-starter-react/compare/v0.5.3...v0.5.4) (2020-03-24)
+
+### Bug Fixes
+
+- add analytics flag ([3921911](https://github.com/graasp/graasp-app-starter-react/commit/39219118147649b2fd40e5aa11b7496d75b960d9))
+
 ### [0.5.3](https://github.com/graasp/graasp-app-starter-react/compare/v0.5.2...v0.5.3) (2020-03-22)
 
 ### Bug Fixes
