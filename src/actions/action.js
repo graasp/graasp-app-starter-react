@@ -1,3 +1,4 @@
+import Qs from 'qs';
 import { DEFAULT_VISIBILITY } from '../config/settings';
 import { flag, getApiContext, isErrorResponse, postMessage } from './common';
 import {
@@ -5,11 +6,62 @@ import {
   POST_ACTION,
   POST_ACTION_FAILED,
   POST_ACTION_SUCCEEDED,
+  FLAG_GETTING_ACTIONS,
+  GET_ACTIONS_SUCCEEDED,
+  GET_ACTIONS_FAILED,
 } from '../types';
 import { ACTION_FORMAT } from '../config/formats';
-import { ACTIONS_ENDPOINT, DEFAULT_POST_REQUEST } from '../config/api';
+import {
+  ACTIONS_ENDPOINT,
+  DEFAULT_GET_REQUEST,
+  DEFAULT_POST_REQUEST,
+} from '../config/api';
 
 const flagPostingAction = flag(FLAG_POSTING_ACTION);
+const flagGettingActions = flag(FLAG_GETTING_ACTIONS);
+
+const getActions = async (
+  params = {
+    spaceId: [],
+    userId: [],
+    visibility: undefined,
+  },
+) => async (dispatch, getState) => {
+  dispatch(flagGettingActions(true));
+  try {
+    const { apiHost, spaceId: currentSpaceId } = getApiContext(getState);
+
+    // by default include current space id
+    const { spaceId = [] } = params;
+    if (!spaceId.length) {
+      spaceId.push(currentSpaceId);
+    }
+
+    // create url from params
+    const url = `//${apiHost + ACTIONS_ENDPOINT}?${Qs.stringify(params)}`;
+
+    const response = await fetch(url, DEFAULT_GET_REQUEST);
+
+    // throws if it is an error
+    await isErrorResponse(response);
+
+    const actions = await response.json();
+
+    // tell redux that we have the actions
+    dispatch({
+      type: GET_ACTIONS_SUCCEEDED,
+      payload: actions,
+    });
+  } catch (err) {
+    // tell redux that we encountered an error
+    dispatch({
+      type: GET_ACTIONS_FAILED,
+      payload: err,
+    });
+  } finally {
+    dispatch(flagGettingActions(false));
+  }
+};
 
 const postAction = async ({
   data,
@@ -92,8 +144,4 @@ const postAction = async ({
   }
 };
 
-export {
-  // todo: remove when more exports are added
-  // eslint-disable-next-line import/prefer-default-export
-  postAction,
-};
+export { postAction, getActions };

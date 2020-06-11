@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import StudentView from './StudentView';
 import { DEFAULT_VIEW, FEEDBACK_VIEW } from '../../../config/views';
-import { getAppInstanceResources } from '../../../actions';
+import { getActions, getAppInstanceResources } from '../../../actions';
 import Loader from '../../common/Loader';
 
 class StudentMode extends Component {
@@ -12,6 +12,7 @@ class StudentMode extends Component {
     view: PropTypes.string,
     activity: PropTypes.number,
     dispatchGetAppInstanceResources: PropTypes.func.isRequired,
+    dispatchGetActions: PropTypes.func.isRequired,
     userId: PropTypes.string,
   };
 
@@ -22,12 +23,17 @@ class StudentMode extends Component {
     userId: null,
   };
 
-  constructor(props) {
-    super(props);
-    const { userId } = props;
+  componentDidMount() {
+    const {
+      userId,
+      dispatchGetAppInstanceResources,
+      dispatchGetActions,
+    } = this.props;
 
-    // get the resources for this user
-    props.dispatchGetAppInstanceResources({ userId });
+    // by default get the resources for this user
+    dispatchGetAppInstanceResources({ userId });
+    // by default get all actions for this user
+    dispatchGetActions({ userId: [userId] });
   }
 
   componentDidUpdate({ appInstanceId: prevAppInstanceId }) {
@@ -66,6 +72,7 @@ const mapStateToProps = ({ context, appInstanceResources }) => {
 
 const mapDispatchToProps = {
   dispatchGetAppInstanceResources: getAppInstanceResources,
+  dispatchGetActions: getActions,
 };
 
 const ConnectedComponent = connect(
