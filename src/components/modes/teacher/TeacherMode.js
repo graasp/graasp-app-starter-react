@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TeacherView from './TeacherView';
 import { DEFAULT_VIEW, DASHBOARD_VIEW } from '../../../config/views';
-import { getAppInstanceResources } from '../../../actions';
+import { getActions, getAppInstanceResources } from '../../../actions';
 import Loader from '../../common/Loader';
 
 class TeacherMode extends Component {
@@ -12,6 +12,7 @@ class TeacherMode extends Component {
     view: PropTypes.string,
     activity: PropTypes.bool,
     dispatchGetAppInstanceResources: PropTypes.func.isRequired,
+    dispatchGetActions: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -20,11 +21,12 @@ class TeacherMode extends Component {
     activity: false,
   };
 
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    const { dispatchGetAppInstanceResources, dispatchGetActions } = this.props;
 
-    // get all of the resources
-    props.dispatchGetAppInstanceResources();
+    // get all of the resources and actions
+    dispatchGetAppInstanceResources();
+    dispatchGetActions();
   }
 
   componentDidUpdate({ appInstanceId: prevAppInstanceId }) {
@@ -55,6 +57,7 @@ const mapStateToProps = ({ context, appInstanceResources }) => ({
 
 const mapDispatchToProps = {
   dispatchGetAppInstanceResources: getAppInstanceResources,
+  dispatchGetActions: getActions,
 };
 
 const ConnectedComponent = connect(
