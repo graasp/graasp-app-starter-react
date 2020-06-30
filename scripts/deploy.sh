@@ -9,7 +9,7 @@ usage() {
 }
 
 # default build directory
-BUILD="dist/"
+BUILD="build/"
 
 # default version
 REACT_APP_VERSION="latest"
@@ -121,3 +121,5 @@ aws s3 sync ${BUILD} s3://${APP_DIR} --delete
 
 # invalidate cloudfront distribution
 # aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION} --paths /${APP_PATH}/*
+
+echo "published app to https://${REACT_APP_HOST}/${APP_PATH}/index.html"

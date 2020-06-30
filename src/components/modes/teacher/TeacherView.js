@@ -105,7 +105,7 @@ export class TeacherView extends Component {
         // we need to specify number to avoid warnings with local server
         _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         appInstanceId: PropTypes.string,
-        data: PropTypes.object,
+        data: PropTypes.shape({}),
       }),
     ),
     // this is the shape of the select options for students
@@ -121,7 +121,7 @@ export class TeacherView extends Component {
     appInstanceResources: [],
   };
 
-  static styles = theme => ({
+  static styles = (theme) => ({
     root: {
       width: '100%',
       marginTop: theme.spacing(3),
@@ -161,7 +161,7 @@ export class TeacherView extends Component {
     dispatchGetUsers();
   }
 
-  handleChangeStudent = value => {
+  handleChangeStudent = (value) => {
     this.setState({
       selectedStudent: value,
     });
