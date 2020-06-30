@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/graasp/graasp-app-starter-react/compare/v0.5.4...v0.6.0) (2020-06-30)
+
+### ⚠ BREAKING CHANGES
+
+- stop support for single file builds
+
+### Features
+
+- stop support for single file builds ([66fadfc](https://github.com/graasp/graasp-app-starter-react/commit/66fadfc62a2d2f3330d2b2883fe3c338eef4ed2e))
+- support getting actions ([4db8272](https://github.com/graasp/graasp-app-starter-react/commit/4db82729028975c877d6e8e4447113cfc5aa4a90)), closes [#91](https://github.com/graasp/graasp-app-starter-react/issues/91)
+
 ### [0.5.4](https://github.com/graasp/graasp-app-starter-react/compare/v0.5.3...v0.5.4) (2020-03-24)
 
 ### Bug Fixes
