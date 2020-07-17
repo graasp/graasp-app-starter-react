@@ -11,13 +11,13 @@ import {
   POST_APP_INSTANCE_RESOURCE_SUCCEEDED,
 } from '../types';
 
-const flag = type => payload => dispatch =>
+const flag = (type) => (payload) => (dispatch) =>
   dispatch({
     type,
     payload,
   });
 
-const isErrorResponse = async response => {
+const isErrorResponse = async (response) => {
   const LOWEST_HTTP_ERROR_CODE = 400;
   const HIGHEST_HTTP_ERROR_CODE = 599;
 
@@ -32,7 +32,7 @@ const isErrorResponse = async response => {
   }
 };
 
-const getApiContext = getState => {
+const getApiContext = (getState) => {
   const { context } = getState();
   const {
     apiHost,
@@ -46,6 +46,7 @@ const getApiContext = getState => {
     standalone,
     parentSpaceId,
     analytics,
+    tool,
   } = context;
 
   if (standalone) {
@@ -78,10 +79,11 @@ const getApiContext = getState => {
     dev,
     parentSpaceId,
     analytics,
+    tool,
   };
 };
 
-const postMessage = data => {
+const postMessage = (data) => {
   const message = JSON.stringify(data);
   if (window.parent.postMessage) {
     window.parent.postMessage(message, '*');
@@ -90,7 +92,7 @@ const postMessage = data => {
   }
 };
 
-const receiveMessage = dispatch => event => {
+const receiveMessage = (dispatch) => (event) => {
   const { data } = event;
   try {
     const message = JSON.parse(data);

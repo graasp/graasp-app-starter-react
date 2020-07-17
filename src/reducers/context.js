@@ -23,6 +23,7 @@ const INITIAL_STATE = {
   reviewing: false,
   standalone: false,
   analytics: false,
+  tool: false,
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
