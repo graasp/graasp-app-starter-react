@@ -1,4 +1,4 @@
-name: Deploy production build to Amazon S3
+name: deploy prod build to aws
 
 on:
   push:
@@ -8,10 +8,15 @@ on:
 
 jobs:
   deploy-prod:
-    environment: prod
     runs-on: ubuntu-latest
     env:
-      BUILD_FOLDER: "build/" # default build directory
+      # default build directory
+      BUILD_FOLDER: "build/" 
+      VERSION: "latest"
+
+      # rename necessary variables used in the app
+      REACT_APP_APPS_DEVELOPER_ID: ${{secrets.APPS_DEVELOPER_ID}}
+      REACT_APP_APP_ID: ${{ secrets.APP_ID }}
       REACT_APP_VERSION: "latest"
     steps:
     - name: Checkout
@@ -25,16 +30,16 @@ jobs:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
+        aws-access-key-id: ${{ secrets.APPS_AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.APPS_AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.APPS_AWS_REGION }}
 
     - name: Copy files to AWS Bucket
       env:
-        APP_DIR: "${{ secrets.BUCKET }}/${{ secrets.REACT_APP_GRAASP_DEVELOPER_ID }}/${{ secrets.REACT_APP_GRAASP_APP_ID }}/${{env.REACT_APP_VERSION}}/"
-      run: aws s3 sync ${{env.BUILD_FOLDER}} s3://$APP_DIR --delete
+        APP_DIR: "${{ secrets.APPS_PROD_BUCKET }}/${{ secrets.APPS_DEVELOPER_ID }}/${{ secrets.APP_ID }}/${{env.VERSION}}/"
+      run: aws s3 sync ${{env.BUILD_FOLDER}} s3://${APP_DIR} --delete
 
-    - name: Invalidate Cloudfront Distribution
+    - name: Invalidate cloudfront distribution
       env:
-        APP_PATH: "${{ secrets.REACT_APP_GRAASP_DEVELOPER_ID }}/${{ secrets.REACT_APP_GRAASP_APP_ID }}/${{env.REACT_APP_VERSION}}"
-      run: aws cloudfront create-invalidation --distribution-id ${{ secrets.DISTRIBUTION }} --paths /${APP_PATH}/*
+        APP_PATH: "${{ secrets.APPS_DEVELOPER_ID }}/${{ secrets.APP_ID }}/${{env.VERSION}}"
+      run: aws cloudfront create-invalidation --distribution-id ${{ secrets.APPS_PROD_CLOUDFRONT_DISTRIBUTION }} --paths /${APP_PATH}/*
