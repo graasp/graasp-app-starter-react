@@ -4,7 +4,7 @@ import {
   GET_CONTEXT_FAILED,
   GET_CONTEXT_SUCCEEDED,
 } from '../types';
-import { flag, receiveMessage } from './common';
+import { flag, receiveMessage, getSettings } from './common';
 import {
   DEFAULT_API_HOST,
   DEFAULT_MODE,
@@ -12,6 +12,7 @@ import {
 } from '../config/settings';
 import { DEFAULT_VIEW } from '../config/views';
 import isInFrame from '../utils/isInFrame';
+import { patchAppInstance } from './appInstance';
 
 // flags
 const flagGettingContext = flag(FLAG_GETTING_CONTEXT);
@@ -93,8 +94,21 @@ const getContext = () => (dispatch) => {
   }
 };
 
-export {
-  // todo: remove with more exports
-  // eslint-disable-next-line import/prefer-default-export
-  getContext,
+// the only context we currently allow to override is language
+const changeLanguage = (lang) => (dispatch, getState) => {
+  const currentSettings = getSettings(getState);
+  const newSettings = {
+    ...currentSettings,
+    lang,
+  };
+  // first save the settings in the app instance
+  dispatch(patchAppInstance({ data: newSettings }));
+
+  // now update the context
+  dispatch({
+    type: GET_CONTEXT_SUCCEEDED,
+    payload: { lang },
+  });
 };
+
+export { changeLanguage, getContext };

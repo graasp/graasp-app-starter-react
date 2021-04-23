@@ -11,6 +11,12 @@ import {
   POST_APP_INSTANCE_RESOURCE_SUCCEEDED,
 } from '../types';
 
+const getSettings = (getState) => {
+  const { appInstance } = getState();
+  const settings = appInstance?.content?.settings;
+  return settings || {};
+};
+
 const flag = (type) => (payload) => (dispatch) =>
   dispatch({
     type,
@@ -117,4 +123,11 @@ const receiveMessage = (dispatch) => (event) => {
   }
 };
 
-export { flag, isErrorResponse, getApiContext, postMessage, receiveMessage };
+export {
+  flag,
+  isErrorResponse,
+  getApiContext,
+  postMessage,
+  receiveMessage,
+  getSettings,
+};
