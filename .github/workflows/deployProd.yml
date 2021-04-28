@@ -19,7 +19,7 @@ jobs:
       REACT_APP_APP_ID: ${{ secrets.APP_ID }}
       REACT_APP_VERSION: 'latest'
       REACT_APP_GOOGLE_ANALYTICS_ID: ${{ secrets.GOOGLE_ANALYTICS_ID }}
-      REACT_APP_GRAASP_DOMAIN: ${{ secrets.DEV_GRAASP_DOMAIN }}
+      REACT_APP_GRAASP_DOMAIN: ${{ secrets.PROD_GRAASP_DOMAIN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
