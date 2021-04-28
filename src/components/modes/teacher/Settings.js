@@ -9,6 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withTranslation } from 'react-i18next';
 import { closeSettings, patchAppInstance } from '../../../actions';
 import Loader from '../../common/Loader';
+import LanguageSelect from '../../common/LanguageSelect';
 
 function getModalStyle() {
   const top = 50;
@@ -20,7 +21,7 @@ function getModalStyle() {
   };
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
   paper: {
     position: 'absolute',
     width: theme.spacing(50),
@@ -53,7 +54,7 @@ class Settings extends Component {
     }).isRequired,
   };
 
-  saveSettings = settingsToChange => {
+  saveSettings = (settingsToChange) => {
     const { settings, dispatchPatchAppInstance } = this.props;
     const newSettings = {
       ...settings,
@@ -97,10 +98,13 @@ class Settings extends Component {
     );
 
     return (
-      <FormControlLabel
-        control={switchControl}
-        label={t('Show Header to Students')}
-      />
+      <>
+        <FormControlLabel
+          control={switchControl}
+          label={t('Show Header to Students')}
+        />
+        <LanguageSelect />
+      </>
     );
   }
 

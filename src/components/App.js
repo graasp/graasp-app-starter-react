@@ -60,7 +60,7 @@ export class App extends Component {
     }
   }
 
-  handleChangeLang = lang => {
+  handleChangeLang = (lang) => {
     const { i18n } = this.props;
     i18n.changeLanguage(lang);
   };
@@ -102,7 +102,7 @@ export class App extends Component {
 
 const mapStateToProps = ({ context, appInstance }) => ({
   headerVisible: appInstance.content.settings.headerVisible,
-  lang: context.lang,
+  lang: appInstance.content.settings?.lang || context.lang,
   mode: context.mode,
   view: context.view,
   appInstanceId: context.appInstanceId,

@@ -23,4 +23,11 @@ i18n.use(initReactI18next).init({
   },
 });
 
+const langs = {
+  en: 'English',
+  fr: 'Français',
+};
+
+export { langs };
+
 export default i18n;
